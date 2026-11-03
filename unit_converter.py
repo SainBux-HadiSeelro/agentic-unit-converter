@@ -462,7 +462,7 @@ if "conversion_history" not in st.session_state:
             "Category": "Length",
             "From": "1 km",
             "To": "1000 m",
-            "Formula": "1\\text{ km} = 1000\\text{ m}"
+            "Formula": "1 km = 1000 m"
         }
     ]
 
@@ -517,7 +517,7 @@ with st.sidebar:
         index=2,
         help="Number of decimal places displayed in results."
     )
-    use_scientific = st.checkbox("Scientific Notation ($1.0 \\times 10^n$)", value=False)
+    use_scientific = st.checkbox("Scientific Notation (1.0 × 10ⁿ)", value=False)
 
     st.markdown("---")
     st.markdown("""
@@ -666,7 +666,19 @@ with tab_quick:
         st.markdown("<br>", unsafe_allow_html=True)
         with st.expander("📐 View Step-by-Step Formula & Explanation", expanded=False):
             st.markdown("**Mathematical Formula:**")
-            st.latex(conversion.formula_latex)
+            clean_formula = (
+                conversion.formula_latex
+                .replace("\\text", "")
+                .replace("{", "")
+                .replace("}", "")
+                .replace("\\times", " × ")
+                .replace("\\frac", "")
+            ).strip()
+            st.markdown(f"""
+            <div style="background: #111827; border: 1.5px solid #0284c7; border-radius: 8px; padding: 10px 14px; font-family: monospace; font-size: 1.05rem; color: #38bdf8 !important; font-weight: 700; margin-bottom: 12px;">
+                {clean_formula}
+            </div>
+            """, unsafe_allow_html=True)
             st.markdown("**Calculation Steps:**")
             st.code(conversion.step_by_step, language="text")
 
