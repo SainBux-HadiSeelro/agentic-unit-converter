@@ -21,7 +21,7 @@ from agent.chatbot import OmniAgentChatbot
 from agent.knowledge_base import PROJECT_KNOWLEDGE_BASE, get_quick_prompts
 
 # -----------------------------------------------------------------------------
-# 1. Page Configuration & Ultra-Clear Visual Theme
+# 1. Page Configuration & Guaranteed-Visible High-Contrast Theme
 # -----------------------------------------------------------------------------
 st.set_page_config(
     page_title="OmniConvert AI | Smart Unit Converter",
@@ -32,86 +32,174 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
-/* Modern typography with maximum legibility */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
-
-html, body, [class*="css"] {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: #f8fafc;
+/* Instant System Fonts - 100% Legibility without Flash of Invisible Text */
+html, body, [class*="css"], .stApp {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    background-color: #0b0f19 !important;
+    color: #ffffff !important;
 }
 
-code, pre {
-    font-family: 'JetBrains Mono', monospace !important;
-}
+/* =========================================================================
+   UNIVERSAL TEXT VISIBILITY (FORCE VISIBLE AT ALL TIMES - NEVER ON HOVER ONLY)
+   ========================================================================= */
 
-/* Base application background */
-.stApp {
-    background: radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.08), transparent 35%),
-                radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.08), transparent 35%),
-                #0a0e17;
-    color: #f8fafc;
-}
-
-/* Explicit high-contrast rules for all Streamlit labels & text */
-label, p, span {
-    color: #f1f5f9 !important;
-}
-
-.stSelectbox label, .stNumberInput label, .stTextInput label, .stRadio label {
-    color: #f8fafc !important;
-    font-size: 0.95rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.01em !important;
-}
-
+/* All headings, paragraphs, and labels forced to bright visible colors */
 h1, h2, h3, h4, h5, h6 {
     color: #ffffff !important;
     font-weight: 800 !important;
-    letter-spacing: -0.02em !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
-/* Input Fields and Selectbox Styling */
-div[data-baseweb="input"] {
-    background-color: #161f30 !important;
-    border: 1px solid #334155 !important;
+p, span, label, strong, b, em, small {
+    color: #f1f5f9 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Streamlit markdown container text */
+[data-testid="stMarkdownContainer"] * {
+    color: #f1f5f9 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Explicit input labels */
+.stSelectbox label, .stNumberInput label, .stTextInput label, .stRadio label {
+    color: #ffffff !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    margin-bottom: 6px !important;
+}
+
+/* =========================================================================
+   BASEWEB SELECTBOX & DROPDOWN - FIXED INVISIBLE TEXT
+   ========================================================================= */
+
+/* Selectbox control container */
+div[data-baseweb="select"] > div {
+    background-color: #162032 !important;
+    border: 1px solid #3b82f6 !important;
     border-radius: 10px !important;
+    color: #ffffff !important;
 }
 
-div[data-baseweb="input"]:focus-within {
-    border-color: #38bdf8 !important;
-    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2) !important;
+/* Selected value text inside the selectbox */
+div[data-baseweb="select"] * {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Dropdown popover menu and options */
+div[data-baseweb="popover"],
+div[data-baseweb="menu"],
+ul[role="listbox"],
+li[role="option"] {
+    background-color: #162032 !important;
+    color: #ffffff !important;
+}
+
+li[role="option"] * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+li[role="option"]:hover {
+    background-color: #0284c7 !important;
+}
+
+/* =========================================================================
+   INPUT FIELDS (QUANTITY & TEXT) - FIXED INVISIBLE TEXT
+   ========================================================================= */
+
+div[data-baseweb="input"] {
+    background-color: #162032 !important;
+    border: 1px solid #3b82f6 !important;
+    border-radius: 10px !important;
 }
 
 div[data-baseweb="input"] input {
     color: #ffffff !important;
-    font-weight: 600 !important;
-    font-size: 1.05rem !important;
+    background-color: transparent !important;
+    font-weight: 700 !important;
+    font-size: 1.15rem !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
 
-div[data-baseweb="select"] > div {
-    background-color: #161f30 !important;
-    border: 1px solid #334155 !important;
+/* Radio buttons and checkboxes */
+div[data-testid="stRadio"] label,
+div[data-testid="stRadio"] span,
+div[data-testid="stCheckbox"] label,
+div[data-testid="stCheckbox"] span {
     color: #ffffff !important;
-    border-radius: 10px !important;
     font-weight: 600 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
-div[data-baseweb="select"]:focus-within > div {
+/* Sidebar text */
+[data-testid="stSidebar"] * {
+    color: #f1f5f9 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] h4 {
+    color: #ffffff !important;
+}
+
+/* =========================================================================
+   BUTTONS
+   ========================================================================= */
+
+.stButton > button {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border: 1px solid #475569 !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.stButton > button * {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.stButton > button:hover {
+    background-color: #0284c7 !important;
     border-color: #38bdf8 !important;
-    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.3) !important;
 }
 
-/* Header badge and titles */
+/* =========================================================================
+   CUSTOM CARD & RESULT CONTAINERS
+   ========================================================================= */
+
 .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(14, 165, 233, 0.15);
-    border: 1px solid rgba(56, 189, 248, 0.4);
-    color: #38bdf8;
+    background: rgba(14, 165, 233, 0.2);
+    border: 1px solid #38bdf8;
+    color: #38bdf8 !important;
     padding: 6px 14px;
     border-radius: 9999px;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -128,133 +216,87 @@ div[data-baseweb="select"]:focus-within > div {
 }
 
 .main-title {
-    font-size: 2.3rem;
+    font-size: 2.4rem;
     font-weight: 800;
-    color: #ffffff;
+    color: #ffffff !important;
     margin: 0;
     line-height: 1.2;
 }
 
 .gradient-title-accent {
-    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #38bdf8 !important;
 }
 
 .subtitle-desc {
-    color: #94a3b8 !important;
+    color: #cbd5e1 !important;
     font-size: 1.05rem;
     margin-top: 6px;
     margin-bottom: 24px;
 }
 
-/* High-Contrast Modern Result Card */
+/* Converted Result Display Box */
 .result-card-box {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    border: 1px solid rgba(56, 189, 248, 0.35);
+    border: 2px solid #38bdf8;
     border-radius: 18px;
     padding: 26px 20px;
     text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-}
-
-.result-card-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    margin-top: 6px;
 }
 
 .result-card-label {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: #38bdf8 !important;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .result-card-value {
-    font-size: 3.2rem;
+    font-size: 3.4rem;
     font-weight: 800;
-    color: #ffffff;
+    color: #ffffff !important;
     line-height: 1.15;
     margin: 6px 0 12px 0;
     word-break: break-word;
-    letter-spacing: -0.02em;
 }
 
 .result-card-badge {
     display: inline-block;
-    background: rgba(14, 165, 233, 0.18);
-    border: 1px solid rgba(56, 189, 248, 0.45);
-    color: #38bdf8;
-    padding: 6px 18px;
+    background: #0284c7;
+    color: #ffffff !important;
+    padding: 8px 22px;
     border-radius: 9999px;
-    font-size: 1.05rem;
-    font-weight: 700;
+    font-size: 1.15rem;
+    font-weight: 800;
 }
 
-/* Parameter Overview Card */
+/* Info Overview Card */
 .info-card {
     background: #111827;
-    border: 1px solid #1f2937;
+    border: 1px solid #334155;
     border-radius: 14px;
     padding: 20px;
     margin-bottom: 16px;
 }
 
-/* Buttons */
-.stButton > button {
-    border-radius: 10px !important;
-    font-weight: 600 !important;
-    transition: all 0.2s ease !important;
-    border: 1px solid #334155 !important;
-}
-
-.stButton > button:hover {
-    border-color: #38bdf8 !important;
-    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25) !important;
-}
-
 /* Chat Styling */
 .user-bubble {
     background: #1e293b;
-    border: 1px solid #334155;
+    border: 1px solid #475569;
     border-radius: 14px 14px 4px 14px;
     padding: 14px 18px;
     margin-bottom: 12px;
-    color: #ffffff;
 }
 
 .assistant-bubble {
     background: #0f172a;
-    border: 1px solid rgba(56, 189, 248, 0.35);
+    border: 1px solid #38bdf8;
     border-radius: 14px 14px 14px 4px;
     padding: 16px 20px;
     margin-bottom: 14px;
-    color: #ffffff;
-}
-
-/* Clean Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-::-webkit-scrollbar-track {
-    background: #0a0e17;
-}
-::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #38bdf8;
 }
 </style>
 """
@@ -287,22 +329,22 @@ if "source_value" not in st.session_state:
     st.session_state.source_value = 1.0
 
 # -----------------------------------------------------------------------------
-# 3. Sidebar Controls (Clean & Minimalist - No Sliders to prevent chunk errors)
+# 3. Sidebar Controls (Visible & High Contrast)
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
             <span style="font-size: 2.2rem;">⚡</span>
             <div>
-                <h3 style="margin: 0; padding: 0; font-size: 1.3rem; font-weight: 800; color: #fff;">OmniConvert AI</h3>
-                <span style="font-size: 0.75rem; color: #38bdf8; font-weight: 700; letter-spacing: 0.05em;">SMART CONVERTER</span>
+                <h3 style="margin: 0; padding: 0; font-size: 1.3rem; font-weight: 800; color: #ffffff;">OmniConvert AI</h3>
+                <span style="font-size: 0.75rem; color: #38bdf8; font-weight: 800; letter-spacing: 0.05em;">SMART CONVERTER</span>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
         <div class="hero-badge">
-            <span class="live-indicator-dot"></span> System Online & Ready
+            <span class="live-indicator-dot"></span> System Ready
         </div>
     """, unsafe_allow_html=True)
 
@@ -319,7 +361,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("#### ⚙️ Display Settings")
     
-    # Safe Selectbox for Precision (prevents Slider.js dynamic chunk loading errors)
+    # Safe Selectbox for Precision
     precision = st.selectbox(
         "Decimal Places:",
         options=[2, 3, 4, 6, 8],
@@ -559,24 +601,24 @@ elif app_mode == "💬 Smart Language (English & Urdu)":
             st.markdown(f"""
             <div class="info-card">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span style="color: #94a3b8;">Language:</span>
-                    <strong style="color: #38bdf8;">{nlp_result.detected_language}</strong>
+                    <span style="color: #94a3b8 !important;">Language:</span>
+                    <strong style="color: #38bdf8 !important;">{nlp_result.detected_language}</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span style="color: #94a3b8;">Value:</span>
-                    <strong style="color: #ffffff;">{nlp_result.source_value}</strong>
+                    <span style="color: #94a3b8 !important;">Value:</span>
+                    <strong style="color: #ffffff !important;">{nlp_result.source_value}</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span style="color: #94a3b8;">From Unit:</span>
-                    <strong style="color: #ffffff;">{nlp_result.source_unit}</strong>
+                    <span style="color: #94a3b8 !important;">From Unit:</span>
+                    <strong style="color: #ffffff !important;">{nlp_result.source_unit}</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span style="color: #94a3b8;">To Unit:</span>
-                    <strong style="color: #ffffff;">{nlp_result.target_unit}</strong>
+                    <span style="color: #94a3b8 !important;">To Unit:</span>
+                    <strong style="color: #ffffff !important;">{nlp_result.target_unit}</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between;">
-                    <span style="color: #94a3b8;">Category:</span>
-                    <strong style="color: #38bdf8;">{nlp_result.category or 'Auto'}</strong>
+                    <span style="color: #94a3b8 !important;">Category:</span>
+                    <strong style="color: #38bdf8 !important;">{nlp_result.category or 'Auto'}</strong>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -650,20 +692,20 @@ elif app_mode == "🤖 24/7 AI Copilot":
             if msg["role"] == "user":
                 st.markdown(f"""
                 <div class="user-bubble">
-                    <strong style="color: #38bdf8;">👤 You</strong> <span style="font-size: 0.75rem; color: #94a3b8; float: right;">{msg.get('timestamp', '')}</span>
-                    <div style="margin-top: 6px; font-size: 1rem;">{msg['content']}</div>
+                    <strong style="color: #38bdf8 !important;">👤 You</strong> <span style="font-size: 0.75rem; color: #94a3b8 !important; float: right;">{msg.get('timestamp', '')}</span>
+                    <div style="margin-top: 6px; font-size: 1rem; color: #ffffff !important;">{msg['content']}</div>
                 </div>
                 """, unsafe_allow_html=True)
             else:
                 st.markdown(f"""
                 <div class="assistant-bubble">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <span style="color: #38bdf8; font-weight: 700;">🤖 Nova Copilot</span>
-                        <span style="font-size: 0.75rem; background: rgba(14, 165, 233, 0.15); color: #38bdf8; padding: 2px 8px; border-radius: 10px;">
+                        <span style="color: #38bdf8 !important; font-weight: 700;">🤖 Nova Copilot</span>
+                        <span style="font-size: 0.75rem; background: rgba(14, 165, 233, 0.2); color: #38bdf8 !important; padding: 2px 8px; border-radius: 10px;">
                             {msg.get('provider', '24/7 Engine')} • {msg.get('timestamp', '')}
                         </span>
                     </div>
-                    <div style="font-size: 1rem; line-height: 1.5;">{msg['content']}</div>
+                    <div style="font-size: 1rem; line-height: 1.5; color: #ffffff !important;">{msg['content']}</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -708,8 +750,8 @@ elif app_mode == "🤖 24/7 AI Copilot":
 # -----------------------------------------------------------------------------
 st.markdown("---")
 st.markdown("""
-<div style="text-align: center; color: #64748b; font-size: 0.88rem; padding: 16px 0;">
-    <strong>OmniConvert AI</strong> • High-Precision Unit Intelligence Engine
+<div style="text-align: center; color: #94a3b8; font-size: 0.88rem; padding: 16px 0;">
+    <strong style="color: #ffffff;">OmniConvert AI</strong> • High-Precision Unit Intelligence Engine
     <br/>
     Conforms to NIST SP 811 & ISO 80000 Physical Standards • English & Roman Urdu NLU
 </div>
