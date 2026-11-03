@@ -141,7 +141,7 @@ label, p, span, strong, b {
 }
 
 /* =========================================================================
-   5. ALL BUTTONS - INCLUDING DOWNLOAD BUTTONS
+   5. BUTTONS & DOWNLOAD BUTTONS
    ========================================================================= */
 .stButton > button {
     background-color: #1e293b !important;
@@ -196,9 +196,10 @@ label, p, span, strong, b {
 }
 
 /* =========================================================================
-   6. AESTHETIC COMPACT FLOATING CHATBOT WIDGET
+   6. AESTHETIC ANIMATED FLOATING BUTTON & SIDE CHATBOT WINDOW
    ========================================================================= */
-/* Floating Launcher in Bottom-Right Corner */
+
+/* Floating Launcher in Bottom-Right Corner with Animations */
 .st-key-fab_chat_trigger {
     position: fixed !important;
     bottom: 24px !important;
@@ -207,41 +208,69 @@ label, p, span, strong, b {
 }
 
 .st-key-fab_chat_trigger > button {
-    background: linear-gradient(135deg, #0284c7 0%, #6366f1 100%) !important;
+    background: linear-gradient(135deg, #0284c7 0%, #6366f1 50%, #00f2fe 100%) !important;
+    background-size: 200% 200% !important;
     color: #ffffff !important;
-    border: 2px solid rgba(255, 255, 255, 0.45) !important;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
     border-radius: 9999px !important;
-    padding: 12px 22px !important;
-    font-size: 1rem !important;
+    padding: 13px 26px !important;
+    font-size: 1.05rem !important;
     font-weight: 800 !important;
-    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.6), 0 0 15px rgba(99, 102, 241, 0.4) !important;
+    box-shadow: 0 8px 30px rgba(2, 132, 199, 0.65), 0 0 20px rgba(99, 102, 241, 0.45) !important;
     cursor: pointer !important;
+    animation: gradientPulse 4s ease infinite, gentleBob 3s ease-in-out infinite !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .st-key-fab_chat_trigger > button:hover {
-    transform: translateY(-3px) scale(1.05) !important;
-    box-shadow: 0 12px 35px rgba(2, 132, 199, 0.85), 0 0 25px rgba(99, 102, 241, 0.6) !important;
+    transform: translateY(-4px) scale(1.05) !important;
+    box-shadow: 0 14px 40px rgba(2, 132, 199, 0.9), 0 0 30px rgba(99, 102, 241, 0.7) !important;
     border-color: #ffffff !important;
 }
 
-/* Compact Modal Styling - Small & Clean */
-div[data-testid="stDialog"] div[role="dialog"] {
-    max-width: 480px !important;
-    border-radius: 20px !important;
+@keyframes gradientPulse {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes gentleBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* SIDE CHAT WIDGET CARD (OPENS ON THE RIGHT SIDE / CORNER - NOT IN THE MIDDLE) */
+.st-key-side_chat_card {
+    position: fixed !important;
+    bottom: 88px !important;
+    right: 24px !important;
+    width: 395px !important;
+    max-width: calc(100vw - 32px) !important;
+    height: 520px !important;
+    max-height: calc(100vh - 110px) !important;
     background: #0d1322 !important;
     border: 2px solid #38bdf8 !important;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.3) !important;
-    padding: 20px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(56, 189, 248, 0.35) !important;
+    z-index: 999998 !important;
+    padding: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    animation: slideInCorner 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-div[data-testid="stDialog"] div[role="dialog"] h2 {
-    font-size: 1.25rem !important;
-    color: #ffffff !important;
-    font-weight: 800 !important;
+@keyframes slideInCorner {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-/* Chat bubble styling inside Dialog */
+/* Chat bubble styling */
 .chat-bubble-user {
     background: #1e293b;
     border: 1px solid #334155;
@@ -359,7 +388,7 @@ if "chat_messages" not in st.session_state:
             "role": "assistant",
             "content": (
                 "👋 **Hello! I am Nova, your 24/7 AI Unit Copilot.**\n\n"
-                "I convert units, explain formulas, and answer physics questions in **English** or **Roman Urdu** without needing any API key!\n\n"
+                "I convert units, explain formulas, and answer physics questions in **English** or **Roman Urdu**!\n\n"
                 "Try asking:\n"
                 "- *'Convert 120 km/h to mph'*\n"
                 "- *'50 miles ko km me convert karo'*\n"
@@ -372,8 +401,11 @@ if "chat_messages" not in st.session_state:
 if "source_value" not in st.session_state:
     st.session_state.source_value = 1.0
 
+if "chat_open" not in st.session_state:
+    st.session_state.chat_open = False
+
 # -----------------------------------------------------------------------------
-# 3. Sidebar Controls (Clean & Simple - No Key Input Needed)
+# 3. Sidebar Controls (Clean Settings)
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
@@ -408,7 +440,7 @@ with st.sidebar:
         <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 12px;">
             <span style="color: #38bdf8; font-weight: 700; font-size: 0.9rem;">🤖 24/7 AI Copilot Active</span>
             <p style="color: #cbd5e1; font-size: 0.82rem; margin: 4px 0 0 0;">
-                Click the <b>💬 Ask Nova AI</b> button in the bottom-right corner anytime. 100% free, zero key required.
+                Click the animated <b>💬 Ask Nova AI</b> button in the bottom-right corner anytime. 100% free, zero key required.
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -659,86 +691,96 @@ with d_col2:
 st.markdown("<br>", unsafe_allow_html=True)
 st.dataframe(df_history[["Timestamp", "Category", "From", "To"]], use_container_width=True)
 
-# -----------------------------------------------------------------------------
-# 7. COMPACT AESTHETIC CORNER CHATBOT (ZERO KEY REQUIRED)
-# -----------------------------------------------------------------------------
-@st.dialog("🤖 Nova AI Copilot", width="small")
-def open_chatbot_dialog():
-    # Built-in 24/7 intelligent engine with zero API key needed
-    chatbot = OmniAgentChatbot(provider="auto")
-
-    st.markdown("""
-        <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid #38bdf8; border-radius: 12px; padding: 10px 14px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
-            <div>
-                <span style="color: #38bdf8 !important; font-weight: 800; font-size: 0.95rem;">🟢 Nova 24/7 Live Assistant</span>
-                <div style="color: #cbd5e1 !important; font-size: 0.8rem;">100% Free • No API Key Needed • English & Urdu</div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # Quick prompt chips
-    qc1, qc2 = st.columns(2)
-    selected_prompt = None
-    if qc1.button("🚗 100 km/h in mph", use_container_width=True, key="dlg_qp1"):
-        selected_prompt = "Convert 100 km/h to mph"
-    if qc2.button("🇵🇰 50 miles in km", use_container_width=True, key="dlg_qp2"):
-        selected_prompt = "50 miles ko km me convert karo"
-
-    # Compact chat history box
-    chat_box = st.container(height=300)
-    with chat_box:
-        for msg in st.session_state.chat_messages:
-            if msg["role"] == "user":
-                st.markdown(f"""
-                <div class="chat-bubble-user">
-                    <strong style="color: #38bdf8 !important;">👤 You:</strong>
-                    <div style="color: #ffffff !important; margin-top: 2px;">{msg['content']}</div>
-                </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.markdown(f"""
-                <div class="chat-bubble-agent">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
-                        <strong style="color: #38bdf8 !important;">🤖 Nova:</strong>
-                        <small style="color: #94a3b8 !important;">{msg.get('provider', '24/7 Engine')}</small>
+# =============================================================================
+# 7. SIDE CHATBOT CARD (OPENS ON RIGHT SIDE / CORNER - STAYS OPEN UNTIL CUT)
+# =============================================================================
+if st.session_state.get("chat_open", False):
+    with st.container(key="side_chat_card"):
+        # Header with Title and Cut (✖) Button
+        head_c1, head_c2 = st.columns([8, 2])
+        with head_c1:
+            st.markdown("""
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 1.25rem;">🤖</span>
+                    <div>
+                        <strong style="color: #ffffff !important; font-size: 1rem;">Nova AI Copilot</strong>
+                        <div style="color: #10b981 !important; font-size: 0.72rem; font-weight: 700;">● Live 24/7 (No Key Needed)</div>
                     </div>
-                    <div style="color: #ffffff !important; line-height: 1.4;">{msg['content']}</div>
                 </div>
-                """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
+        with head_c2:
+            if st.button("✖", key="cut_chat_btn", help="Cut / Close Chatbot"):
+                st.session_state.chat_open = False
+                st.rerun()
 
-    # Chat Input Box
-    chat_input = st.chat_input("Ask Nova any unit or formula question...", key="dlg_chat_input")
-    user_message = selected_prompt or chat_input
+        st.markdown("<hr style='margin: 6px 0; border-color: #1e293b;'>", unsafe_allow_html=True)
 
-    if user_message:
-        st.session_state.chat_messages.append({
-            "role": "user",
-            "content": user_message,
-            "timestamp": datetime.now().strftime("%H:%M:%S")
-        })
+        # Quick clickable chips
+        qc1, qc2 = st.columns(2)
+        selected_prompt = None
+        if qc1.button("🚗 100 km/h in mph", use_container_width=True, key="float_qp1"):
+            selected_prompt = "Convert 100 km/h to mph"
+        if qc2.button("🇵🇰 50 miles in km", use_container_width=True, key="float_qp2"):
+            selected_prompt = "50 miles ko km me convert karo"
 
-        with st.spinner("🤖 Nova is thinking..."):
-            res = chatbot.process_message(
-                user_message=user_message,
-                chat_history=st.session_state.chat_messages[:-1]
-            )
+        # Chat message history container
+        chat_box = st.container(height=260)
+        with chat_box:
+            for msg in st.session_state.chat_messages:
+                if msg["role"] == "user":
+                    st.markdown(f"""
+                    <div class="chat-bubble-user">
+                        <strong style="color: #38bdf8 !important;">👤 You:</strong>
+                        <div style="color: #ffffff !important; margin-top: 2px;">{msg['content']}</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.markdown(f"""
+                    <div class="chat-bubble-agent">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+                            <strong style="color: #38bdf8 !important;">🤖 Nova:</strong>
+                            <small style="color: #94a3b8 !important;">{msg.get('provider', '24/7 Engine')}</small>
+                        </div>
+                        <div style="color: #ffffff !important; line-height: 1.4;">{msg['content']}</div>
+                    </div>
+                    """, unsafe_allow_html=True)
 
-        st.session_state.chat_messages.append({
-            "role": "assistant",
-            "content": res["response"],
-            "provider": res["provider_used"],
-            "timestamp": datetime.now().strftime("%H:%M:%S")
-        })
-        st.rerun()
+        # Chat Input Box
+        chat_input = st.chat_input("Ask Nova any question...", key="float_chat_input")
+        user_message = selected_prompt or chat_input
 
-    if len(st.session_state.chat_messages) > 1:
-        if st.button("🗑️ Clear Chat", key="dlg_clear_chat", use_container_width=True):
-            st.session_state.chat_messages = [st.session_state.chat_messages[0]]
+        if user_message:
+            st.session_state.chat_messages.append({
+                "role": "user",
+                "content": user_message,
+                "timestamp": datetime.now().strftime("%H:%M:%S")
+            })
+
+            chatbot = OmniAgentChatbot(provider="auto")
+            with st.spinner("🤖 Nova is thinking..."):
+                res = chatbot.process_message(
+                    user_message=user_message,
+                    chat_history=st.session_state.chat_messages[:-1]
+                )
+
+            st.session_state.chat_messages.append({
+                "role": "assistant",
+                "content": res["response"],
+                "provider": res["provider_used"],
+                "timestamp": datetime.now().strftime("%H:%M:%S")
+            })
             st.rerun()
 
-# Floating Aesthetic Corner Button Trigger (Fixed at bottom-right corner)
-if st.button("💬 Ask Nova AI", key="fab_chat_trigger", help="Open 24/7 AI Unit Copilot"):
-    open_chatbot_dialog()
+        if len(st.session_state.chat_messages) > 1:
+            if st.button("🗑️ Clear Chat History", key="float_clear_chat", use_container_width=True):
+                st.session_state.chat_messages = [st.session_state.chat_messages[0]]
+                st.rerun()
+
+# Floating Aesthetic Corner Button Trigger (Fixed at bottom-right corner with Animation)
+fab_label = "✖ Cut Nova AI" if st.session_state.get("chat_open", False) else "💬 Ask Nova AI"
+if st.button(fab_label, key="fab_chat_trigger", help="Toggle 24/7 AI Unit Copilot"):
+    st.session_state.chat_open = not st.session_state.get("chat_open", False)
+    st.rerun()
 
 # -----------------------------------------------------------------------------
 # 8. Clean Minimalist Global Footer
