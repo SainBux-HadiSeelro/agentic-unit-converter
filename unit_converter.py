@@ -1,6 +1,6 @@
 """
-OmniConvert AI - Autonomous Unit Intelligence & 24/7 Live Copilot
-Conforms to NIST SP 811, BIPM SI & ISO 80000 standards.
+OmniConvert AI - Fast, High-Precision Unit Intelligence & 24/7 AI Copilot
+Conforms to NIST SP 811, BIPM SI & ISO 80000 physical standards.
 """
 import streamlit as st
 import pandas as pd
@@ -21,10 +21,10 @@ from agent.chatbot import OmniAgentChatbot
 from agent.knowledge_base import PROJECT_KNOWLEDGE_BASE, get_quick_prompts
 
 # -----------------------------------------------------------------------------
-# 1. Page Configuration & Modern Theme Styling
+# 1. Page Configuration & Ultra-Clear Visual Theme
 # -----------------------------------------------------------------------------
 st.set_page_config(
-    page_title="OmniConvert AI | Fast & Intelligent Unit Converter",
+    page_title="OmniConvert AI | Smart Unit Converter",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -32,107 +32,135 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
-/* Modern Clean Inter & JetBrains Typography */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* Modern typography with maximum legibility */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
 html, body, [class*="css"] {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #f8fafc;
 }
 
 code, pre {
     font-family: 'JetBrains Mono', monospace !important;
 }
 
-/* Background Theme */
+/* Base application background */
 .stApp {
-    background: radial-gradient(circle at 20% 15%, rgba(14, 165, 233, 0.08), transparent 40%),
-                radial-gradient(circle at 80% 85%, rgba(99, 102, 241, 0.08), transparent 40%),
-                #0b0f19;
+    background: radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.08), transparent 35%),
+                radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.08), transparent 35%),
+                #0a0e17;
     color: #f8fafc;
 }
 
-/* Header & Title Styling */
-.main-header {
-    margin-bottom: 24px;
+/* Explicit high-contrast rules for all Streamlit labels & text */
+label, p, span {
+    color: #f1f5f9 !important;
 }
 
-.hero-pill {
+.stSelectbox label, .stNumberInput label, .stTextInput label, .stRadio label {
+    color: #f8fafc !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em !important;
+}
+
+/* Input Fields and Selectbox Styling */
+div[data-baseweb="input"] {
+    background-color: #161f30 !important;
+    border: 1px solid #334155 !important;
+    border-radius: 10px !important;
+}
+
+div[data-baseweb="input"]:focus-within {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2) !important;
+}
+
+div[data-baseweb="input"] input {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 1.05rem !important;
+}
+
+div[data-baseweb="select"] > div {
+    background-color: #161f30 !important;
+    border: 1px solid #334155 !important;
+    color: #ffffff !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+div[data-baseweb="select"]:focus-within > div {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2) !important;
+}
+
+/* Header badge and titles */
+.hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(14, 165, 233, 0.12);
-    border: 1px solid rgba(56, 189, 248, 0.35);
+    background: rgba(14, 165, 233, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.4);
     color: #38bdf8;
     padding: 6px 14px;
     border-radius: 9999px;
     font-size: 0.82rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     margin-bottom: 12px;
 }
 
-.live-dot {
+.live-indicator-dot {
     width: 8px;
     height: 8px;
     background-color: #10b981;
     border-radius: 50%;
     display: inline-block;
-    box-shadow: 0 0 10px #10b981;
-    animation: pulse-dot 2s infinite;
+    box-shadow: 0 0 8px #10b981;
 }
 
-@keyframes pulse-dot {
-    0% { transform: scale(0.95); opacity: 0.8; }
-    50% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(0.95); opacity: 0.8; }
-}
-
-.header-title {
-    margin: 0;
+.main-title {
     font-size: 2.3rem;
     font-weight: 800;
     color: #ffffff;
-    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.2;
 }
 
-.header-gradient-text {
+.gradient-title-accent {
     background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.header-desc {
-    color: #94a3b8;
-    margin-top: 6px;
+.subtitle-desc {
+    color: #94a3b8 !important;
     font-size: 1.05rem;
-    line-height: 1.5;
+    margin-top: 6px;
+    margin-bottom: 24px;
 }
 
-/* Glassmorphism Clean Cards */
-.converter-card {
-    background: rgba(18, 24, 38, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+/* High-Contrast Modern Result Card */
+.result-card-box {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 1px solid rgba(56, 189, 248, 0.35);
     border-radius: 18px;
-    padding: 24px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(16px);
-    margin-bottom: 20px;
-}
-
-/* Ultra Clean Result Display Box */
-.result-container {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    border-radius: 20px;
     padding: 26px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
-.result-container::before {
+.result-card-box::before {
     content: '';
     position: absolute;
     top: 0;
@@ -142,79 +170,84 @@ code, pre {
     background: linear-gradient(90deg, #38bdf8, #818cf8);
 }
 
-.result-caption {
-    font-size: 0.9rem;
-    color: #94a3b8;
+.result-card-label {
+    font-size: 0.85rem;
+    color: #38bdf8 !important;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 600;
+    margin-bottom: 8px;
 }
 
-.result-number {
+.result-card-value {
     font-size: 3.2rem;
     font-weight: 800;
     color: #ffffff;
-    line-height: 1.2;
-    margin: 10px 0;
+    line-height: 1.15;
+    margin: 6px 0 12px 0;
     word-break: break-word;
     letter-spacing: -0.02em;
 }
 
-.result-badge {
+.result-card-badge {
     display: inline-block;
-    background: rgba(14, 165, 233, 0.15);
-    border: 1px solid rgba(56, 189, 248, 0.35);
+    background: rgba(14, 165, 233, 0.18);
+    border: 1px solid rgba(56, 189, 248, 0.45);
     color: #38bdf8;
-    padding: 6px 16px;
+    padding: 6px 18px;
     border-radius: 9999px;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
 }
 
-/* Chat Assistant Bubbles */
-.chat-user {
-    background: linear-gradient(135deg, #1e293b, #334155);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px 16px 4px 16px;
-    padding: 14px 18px;
-    margin-bottom: 12px;
-    color: #f8fafc;
+/* Parameter Overview Card */
+.info-card {
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
 }
 
-.chat-assistant {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    border-radius: 16px 16px 16px 4px;
-    padding: 16px 20px;
-    margin-bottom: 14px;
-    color: #f1f5f9;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-}
-
-/* Streamlit native widget polish */
-div[data-testid="stMetricValue"] {
-    font-size: 2rem !important;
-    color: #38bdf8 !important;
-}
-
+/* Buttons */
 .stButton > button {
-    border-radius: 12px !important;
+    border-radius: 10px !important;
     font-weight: 600 !important;
     transition: all 0.2s ease !important;
+    border: 1px solid #334155 !important;
 }
 
 .stButton > button:hover {
     border-color: #38bdf8 !important;
-    box-shadow: 0 0 14px rgba(56, 189, 248, 0.25) !important;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25) !important;
 }
 
-/* Custom Scrollbar */
+/* Chat Styling */
+.user-bubble {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px 14px 4px 14px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    color: #ffffff;
+}
+
+.assistant-bubble {
+    background: #0f172a;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 14px 14px 14px 4px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    color: #ffffff;
+}
+
+/* Clean Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #0b0f19;
+    background: #0a0e17;
 }
 ::-webkit-scrollbar-thumb {
     background: #1e293b;
@@ -239,7 +272,7 @@ if "chat_messages" not in st.session_state:
             "role": "assistant",
             "content": (
                 "👋 **Hello! I am Nova, your 24/7 AI Unit Copilot.**\n\n"
-                "I can convert units, explain formulas step-by-step, and answer any physics or math queries.\n\n"
+                "I can convert units, explain formulas step-by-step, and answer any physics or math questions.\n\n"
                 "You can talk to me in **English** or **Roman Urdu**! Try asking:\n"
                 "- *'Convert 120 km/h to mph'*\n"
                 "- *'50 miles ko km me convert karo'*\n"
@@ -254,11 +287,11 @@ if "source_value" not in st.session_state:
     st.session_state.source_value = 1.0
 
 # -----------------------------------------------------------------------------
-# 3. Sidebar Configuration (Clean & Simple)
+# 3. Sidebar Controls (Clean & Minimalist - No Sliders to prevent chunk errors)
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
             <span style="font-size: 2.2rem;">⚡</span>
             <div>
                 <h3 style="margin: 0; padding: 0; font-size: 1.3rem; font-weight: 800; color: #fff;">OmniConvert AI</h3>
@@ -268,28 +301,35 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
     st.markdown("""
-        <div class="hero-pill">
-            <span class="live-dot"></span> System Online & Ready
+        <div class="hero-badge">
+            <span class="live-indicator-dot"></span> System Online & Ready
         </div>
     """, unsafe_allow_html=True)
 
     app_mode = st.radio(
-        "Navigation Mode:",
+        "Navigation:",
         [
-            "⚡ Multi-Category Converter",
-            "💬 Smart NLU (English & Urdu)",
+            "⚡ Quick Unit Converter",
+            "💬 Smart Language (English & Urdu)",
             "🤖 24/7 AI Copilot"
         ],
         index=0
     )
 
     st.markdown("---")
-    st.markdown("#### ⚙️ Settings & Formatting")
-    precision = st.slider("Decimal Places", min_value=1, max_value=8, value=4)
+    st.markdown("#### ⚙️ Display Settings")
+    
+    # Safe Selectbox for Precision (prevents Slider.js dynamic chunk loading errors)
+    precision = st.selectbox(
+        "Decimal Places:",
+        options=[2, 3, 4, 6, 8],
+        index=2,
+        help="Number of decimal places shown in the converted result."
+    )
     use_scientific = st.checkbox("Scientific Notation ($1.0 \\times 10^n$)", value=False)
 
-    # Optional Copilot Settings (Clean Collapsible)
-    with st.expander("🤖 AI Provider Settings (Optional)"):
+    # Optional AI Provider Configuration
+    with st.expander("🤖 AI Copilot Settings (Optional)"):
         provider_choice = st.selectbox(
             "Provider:",
             ["Auto / Built-in 24/7 (Zero Downtime)", "Google Gemini (Live)", "OpenAI (Live)"],
@@ -302,17 +342,17 @@ with st.sidebar:
         )
 
 # -----------------------------------------------------------------------------
-# 4. Mode 1: Standard & Multi-Category Interactive Converter
+# 4. Mode 1: Quick Multi-Category Unit Converter
 # -----------------------------------------------------------------------------
-if app_mode == "⚡ Multi-Category Converter":
+if app_mode == "⚡ Quick Unit Converter":
     st.markdown("""
-        <div class="main-header">
-            <div class="hero-pill"><span class="live-dot"></span> High-Precision Physics Engine</div>
-            <h1 class="header-title">
-                Smart <span class="header-gradient-text">Unit Converter</span>
+        <div>
+            <div class="hero-badge"><span class="live-indicator-dot"></span> NIST SP 811 & ISO 80000 Compliant</div>
+            <h1 class="main-title">
+                Smart <span class="gradient-title-accent">Unit Converter</span>
             </h1>
-            <p class="header-desc">
-                Instant, accurate conversions across 10 physical dimensions with step-by-step mathematical proofs.
+            <p class="subtitle-desc">
+                High-precision, instantaneous conversions across 10 physical dimensions.
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -321,7 +361,7 @@ if app_mode == "⚡ Multi-Category Converter":
     categories = get_categories()
     category_labels = [f"{CATEGORY_ICONS.get(cat, '📐')} {cat}" for cat in categories]
     selected_cat_idx = st.selectbox(
-        "Choose Category:",
+        "Select Category:",
         options=range(len(categories)),
         format_func=lambda i: category_labels[i],
         index=0
@@ -343,13 +383,13 @@ if app_mode == "⚡ Multi-Category Converter":
     if to_key_state not in st.session_state:
         st.session_state[to_key_state] = 1 if len(unit_keys) > 1 else 0
 
-    # Inputs layout
-    col1, col_swap, col2 = st.columns([5, 1, 5])
+    # Clean 2-Column Layout with Center Swap
+    col1, col_swap, col2 = st.columns([5, 1.2, 5])
 
     with col1:
-        st.markdown(f"**From ({selected_category})**")
+        st.markdown(f"**From ({selected_category}):**")
         from_idx = st.selectbox(
-            "From Unit",
+            "Source Unit",
             options=range(len(unit_keys)),
             format_func=lambda i: unit_display_names[i],
             key=from_key_state,
@@ -357,33 +397,33 @@ if app_mode == "⚡ Multi-Category Converter":
         )
         source_key = unit_keys[from_idx]
 
-        # Numeric value input
+        # Numeric Input
         source_val = st.number_input(
-            "Enter Value:",
+            "Enter Quantity:",
             value=float(st.session_state.source_value),
             format="%.4f",
             key=f"val_{selected_category}"
         )
         st.session_state.source_value = source_val
 
-        # Quick preset helper buttons
+        # Quick Helper Buttons
         p1, p2, p3, p4 = st.columns(4)
-        if p1.button("+1", use_container_width=True, help="Add 1"):
+        if p1.button("+1", use_container_width=True):
             st.session_state.source_value = source_val + 1.0
             st.rerun()
-        if p2.button("+10", use_container_width=True, help="Add 10"):
+        if p2.button("+10", use_container_width=True):
             st.session_state.source_value = source_val + 10.0
             st.rerun()
-        if p3.button("100", use_container_width=True, help="Set to 100"):
+        if p3.button("100", use_container_width=True):
             st.session_state.source_value = 100.0
             st.rerun()
-        if p4.button("Reset", use_container_width=True, help="Reset to 1"):
+        if p4.button("Reset", use_container_width=True):
             st.session_state.source_value = 1.0
             st.rerun()
 
     with col_swap:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-        if st.button("⇄", help="Swap From & To Units", use_container_width=True):
+        if st.button("⇄ Swap", help="Swap Source and Target Units", use_container_width=True):
             curr_from = st.session_state[from_key_state]
             curr_to = st.session_state[to_key_state]
             st.session_state[from_key_state] = curr_to
@@ -391,9 +431,9 @@ if app_mode == "⚡ Multi-Category Converter":
             st.rerun()
 
     with col2:
-        st.markdown(f"**To ({selected_category})**")
+        st.markdown(f"**To ({selected_category}):**")
         to_idx = st.selectbox(
-            "To Unit",
+            "Target Unit",
             options=range(len(unit_keys)),
             format_func=lambda i: unit_display_names[i],
             key=to_key_state,
@@ -411,10 +451,10 @@ if app_mode == "⚡ Multi-Category Converter":
                 formatted_val = f"{conversion.target_value:,.{precision}f}".rstrip('0').rstrip('.') if '.' in f"{conversion.target_value:.{precision}f}" else f"{conversion.target_value:.0f}"
 
             st.markdown(f"""
-                <div class="result-container">
-                    <div class="result-caption">Converted Result</div>
-                    <div class="result-number">{formatted_val}</div>
-                    <div class="result-badge">
+                <div class="result-card-box">
+                    <div class="result-card-label">Converted Result</div>
+                    <div class="result-card-value">{formatted_val}</div>
+                    <div class="result-card-badge">
                         {conversion.target_unit} ({conversion.target_symbol})
                     </div>
                 </div>
@@ -433,7 +473,7 @@ if app_mode == "⚡ Multi-Category Converter":
         else:
             st.error(f"⚠️ {conversion.error_message}")
 
-    # Step-by-Step Derivation
+    # Step-by-Step Derivation Expander
     if conversion.success:
         st.markdown("<br>", unsafe_allow_html=True)
         with st.expander("📐 View Step-by-Step Formula & Explanation", expanded=False):
@@ -459,7 +499,7 @@ if app_mode == "⚡ Multi-Category Converter":
         with d_col1:
             csv_data = df_history.to_csv(index=False).encode('utf-8')
             st.download_button(
-                label="📥 Download History (CSV)",
+                label="📥 Download CSV",
                 data=csv_data,
                 file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
                 mime="text/csv",
@@ -468,7 +508,7 @@ if app_mode == "⚡ Multi-Category Converter":
         with d_col2:
             json_data = json.dumps(st.session_state.conversion_history, indent=2).encode('utf-8')
             st.download_button(
-                label="📥 Download History (JSON)",
+                label="📥 Download JSON",
                 data=json_data,
                 file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
                 mime="application/json",
@@ -478,21 +518,21 @@ if app_mode == "⚡ Multi-Category Converter":
 # -----------------------------------------------------------------------------
 # 5. Mode 2: Natural Language Converter (English & Roman Urdu)
 # -----------------------------------------------------------------------------
-elif app_mode == "💬 Smart NLU (English & Urdu)":
+elif app_mode == "💬 Smart Language (English & Urdu)":
     st.markdown("""
-        <div class="main-header">
-            <div class="hero-pill"><span class="live-dot"></span> Bilingual Language Understanding</div>
-            <h1 class="header-title">
-                Smart <span class="header-gradient-text">Language Converter</span>
+        <div>
+            <div class="hero-badge"><span class="live-indicator-dot"></span> Bilingual NLU Engine</div>
+            <h1 class="main-title">
+                Smart <span class="gradient-title-accent">Language Converter</span>
             </h1>
-            <p class="header-desc">
-                Type naturally in plain <b>English</b> or <b>Roman Urdu</b>. The system understands your query and computes the result instantly.
+            <p class="subtitle-desc">
+                Type naturally in <b>English</b> or <b>Roman Urdu</b>. The system understands your query and computes the result automatically.
             </p>
         </div>
     """, unsafe_allow_html=True)
 
-    # Quick example chips
-    st.markdown("**Quick Examples (Click to try):**")
+    # Clickable Example Chips
+    st.markdown("**Click an example to test:**")
     q_col1, q_col2, q_col3 = st.columns(3)
     test_query = ""
     if q_col1.button("🚗 120 km/h to mph", use_container_width=True):
@@ -503,7 +543,7 @@ elif app_mode == "💬 Smart NLU (English & Urdu)":
         test_query = "100 celsius ko fahrenheit me badlo"
 
     user_query = st.text_input(
-        "Enter your query in English or Roman Urdu:",
+        "Enter your conversion command:",
         value=test_query,
         placeholder="e.g. 'Convert 75 miles to km' or '500 gram kitne kg hote hain'"
     )
@@ -515,9 +555,9 @@ elif app_mode == "💬 Smart NLU (English & Urdu)":
         col_res1, col_res2 = st.columns([4, 6])
 
         with col_res1:
-            st.markdown("#### 🔍 Parsed Parameters")
+            st.markdown("#### 🔍 Parsed Query Details")
             st.markdown(f"""
-            <div class="converter-card">
+            <div class="info-card">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                     <span style="color: #94a3b8;">Language:</span>
                     <strong style="color: #38bdf8;">{nlp_result.detected_language}</strong>
@@ -527,11 +567,11 @@ elif app_mode == "💬 Smart NLU (English & Urdu)":
                     <strong style="color: #ffffff;">{nlp_result.source_value}</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span style="color: #94a3b8;">From:</span>
+                    <span style="color: #94a3b8;">From Unit:</span>
                     <strong style="color: #ffffff;">{nlp_result.source_unit}</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span style="color: #94a3b8;">To:</span>
+                    <span style="color: #94a3b8;">To Unit:</span>
                     <strong style="color: #ffffff;">{nlp_result.target_unit}</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between;">
@@ -542,14 +582,14 @@ elif app_mode == "💬 Smart NLU (English & Urdu)":
             """, unsafe_allow_html=True)
 
         with col_res2:
-            st.markdown("#### 🎯 Result")
+            st.markdown("#### 🎯 Converted Result")
             if nlp_result.success and nlp_result.conversion_result:
                 conv = nlp_result.conversion_result
                 st.markdown(f"""
-                    <div class="result-container">
-                        <div class="result-caption">{conv.source_value:g} {conv.source_unit} =</div>
-                        <div class="result-number">{conv.target_value:.6g}</div>
-                        <div class="result-badge">
+                    <div class="result-card-box">
+                        <div class="result-card-label">{conv.source_value:g} {conv.source_unit} =</div>
+                        <div class="result-card-value">{conv.target_value:.6g}</div>
+                        <div class="result-card-badge">
                             {conv.target_unit} ({conv.target_symbol})
                         </div>
                     </div>
@@ -562,17 +602,17 @@ elif app_mode == "💬 Smart NLU (English & Urdu)":
                 st.warning(f"⚠️ {nlp_result.message}")
 
 # -----------------------------------------------------------------------------
-# 6. Mode 3: 24/7 AI Customer Support Copilot
+# 6. Mode 3: 24/7 AI Customer Copilot
 # -----------------------------------------------------------------------------
 elif app_mode == "🤖 24/7 AI Copilot":
     st.markdown("""
-        <div class="main-header">
-            <div class="hero-pill"><span class="live-dot"></span> 24/7 AI Assistant</div>
-            <h1 class="header-title">
-                Nova <span class="header-gradient-text">AI Copilot</span>
+        <div>
+            <div class="hero-badge"><span class="live-indicator-dot"></span> 24/7 Intelligent Assistant</div>
+            <h1 class="main-title">
+                Nova <span class="gradient-title-accent">AI Copilot</span>
             </h1>
-            <p class="header-desc">
-                Your smart physics and unit conversion companion. Ask questions, request conversions, or understand formulas in English or Roman Urdu.
+            <p class="subtitle-desc">
+                Ask questions, request conversions, or explore formulas in English or Roman Urdu.
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -583,7 +623,7 @@ elif app_mode == "🤖 24/7 AI Copilot":
         api_key=user_api_key if user_api_key else None
     )
 
-    # Suggested inquiries chips
+    # Suggested Prompts
     st.markdown("**Suggested Questions:**")
     quick_cols = st.columns(3)
     prompts = [
@@ -609,26 +649,26 @@ elif app_mode == "🤖 24/7 AI Copilot":
         for msg in st.session_state.chat_messages:
             if msg["role"] == "user":
                 st.markdown(f"""
-                <div class="chat-user">
+                <div class="user-bubble">
                     <strong style="color: #38bdf8;">👤 You</strong> <span style="font-size: 0.75rem; color: #94a3b8; float: right;">{msg.get('timestamp', '')}</span>
-                    <div style="margin-top: 6px;">{msg['content']}</div>
+                    <div style="margin-top: 6px; font-size: 1rem;">{msg['content']}</div>
                 </div>
                 """, unsafe_allow_html=True)
             else:
                 st.markdown(f"""
-                <div class="chat-assistant">
+                <div class="assistant-bubble">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <span style="color: #38bdf8; font-weight: 700;">🤖 Nova Copilot</span>
                         <span style="font-size: 0.75rem; background: rgba(14, 165, 233, 0.15); color: #38bdf8; padding: 2px 8px; border-radius: 10px;">
                             {msg.get('provider', '24/7 Engine')} • {msg.get('timestamp', '')}
                         </span>
                     </div>
-                    <div>{msg['content']}</div>
+                    <div style="font-size: 1rem; line-height: 1.5;">{msg['content']}</div>
                 </div>
                 """, unsafe_allow_html=True)
 
     # Chat Input
-    chat_input_val = st.chat_input("Ask Nova any question or conversion command...")
+    chat_input_val = st.chat_input("Type your question or conversion command here...")
     user_to_send = selected_quick_prompt or chat_input_val
 
     if user_to_send:
@@ -664,7 +704,7 @@ elif app_mode == "🤖 24/7 AI Copilot":
             st.rerun()
 
 # -----------------------------------------------------------------------------
-# 7. Clean Global Footer
+# 7. Clean Minimalist Global Footer
 # -----------------------------------------------------------------------------
 st.markdown("---")
 st.markdown("""
