@@ -1,10 +1,9 @@
 """
 OmniConvert AI - Main Application Entrypoint
-Redirects to unit_converter.py for universal compatibility.
+Universal launcher for unit_converter.py
 """
 import runpy
 from pathlib import Path
 
-if __name__ == "__main__":
-    target = Path(__file__).parent / "unit_converter.py"
-    runpy.run_path(str(target), run_name="__main__")
+target = Path(__file__).parent / "unit_converter.py"
+runpy.run_path(str(target), run_name="__main__")
