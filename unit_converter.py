@@ -196,62 +196,73 @@ label, p, span, strong, b {
 }
 
 /* =========================================================================
-   6. AESTHETIC ANIMATED FLOATING BUTTON & SIDE CHATBOT WINDOW
+   6. AESTHETIC ANIMATED FLOATING BUTTON (LIFTED HIGHER + GLOWING HALO)
    ========================================================================= */
 
-/* Floating Launcher in Bottom-Right Corner with Animations */
+/* Floating Launcher in Bottom-Right Corner - Positioned Higher (bottom: 50px) */
 .st-key-fab_chat_trigger {
     position: fixed !important;
-    bottom: 24px !important;
+    bottom: 50px !important;
     right: 24px !important;
     z-index: 999999 !important;
 }
 
 .st-key-fab_chat_trigger > button {
     background: linear-gradient(135deg, #0284c7 0%, #6366f1 50%, #00f2fe 100%) !important;
-    background-size: 200% 200% !important;
+    background-size: 250% 250% !important;
     color: #ffffff !important;
-    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    border: 2px solid rgba(255, 255, 255, 0.6) !important;
     border-radius: 9999px !important;
-    padding: 13px 26px !important;
+    padding: 14px 26px !important;
     font-size: 1.05rem !important;
     font-weight: 800 !important;
-    box-shadow: 0 8px 30px rgba(2, 132, 199, 0.65), 0 0 20px rgba(99, 102, 241, 0.45) !important;
     cursor: pointer !important;
-    animation: gradientPulse 4s ease infinite, gentleBob 3s ease-in-out infinite !important;
+    animation: gradientShift 4s ease infinite, gentleFloat 3s ease-in-out infinite, pulseHalo 2.5s infinite !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .st-key-fab_chat_trigger > button:hover {
-    transform: translateY(-4px) scale(1.05) !important;
-    box-shadow: 0 14px 40px rgba(2, 132, 199, 0.9), 0 0 30px rgba(99, 102, 241, 0.7) !important;
+    transform: translateY(-4px) scale(1.08) !important;
+    box-shadow: 0 16px 45px rgba(2, 132, 199, 0.9), 0 0 35px rgba(99, 102, 241, 0.8) !important;
     border-color: #ffffff !important;
 }
 
-@keyframes gradientPulse {
+@keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-@keyframes gentleBob {
+@keyframes gentleFloat {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+    50% { transform: translateY(-6px); }
 }
 
-/* SIDE CHAT WIDGET CARD (OPENS ON THE RIGHT SIDE / CORNER - NOT IN THE MIDDLE) */
+@keyframes pulseHalo {
+    0% {
+        box-shadow: 0 8px 25px rgba(2, 132, 199, 0.6), 0 0 0 0 rgba(2, 132, 199, 0.55);
+    }
+    70% {
+        box-shadow: 0 12px 35px rgba(2, 132, 199, 0.75), 0 0 0 16px rgba(2, 132, 199, 0);
+    }
+    100% {
+        box-shadow: 0 8px 25px rgba(2, 132, 199, 0.6), 0 0 0 0 rgba(2, 132, 199, 0);
+    }
+}
+
+/* SIDE CHAT WIDGET CARD (OPENS ABOVE THE BUTTON ON THE RIGHT CORNER) */
 .st-key-side_chat_card {
     position: fixed !important;
-    bottom: 88px !important;
+    bottom: 118px !important;
     right: 24px !important;
-    width: 395px !important;
+    width: 410px !important;
     max-width: calc(100vw - 32px) !important;
-    height: 520px !important;
-    max-height: calc(100vh - 110px) !important;
+    height: 530px !important;
+    max-height: calc(100vh - 140px) !important;
     background: #0d1322 !important;
     border: 2px solid #38bdf8 !important;
     border-radius: 20px !important;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(56, 189, 248, 0.35) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(56, 189, 248, 0.35) !important;
     z-index: 999998 !important;
     padding: 16px !important;
     display: flex !important;
@@ -270,23 +281,61 @@ label, p, span, strong, b {
     }
 }
 
-/* Chat bubble styling */
+/* =========================================================================
+   TWO-SIDED CHAT BUBBLES WITH DISTINCT COLORS & SIDES
+   ========================================================================= */
+
+/* USER BUBBLE: RIGHT-ALIGNED (ROYAL BLUE GRADIENT) */
+.chat-row-user {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 .chat-bubble-user {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 12px 12px 2px 12px;
-    padding: 10px 14px;
-    margin-bottom: 8px;
-    font-size: 0.95rem;
+    background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 16px 16px 3px 16px !important;
+    padding: 10px 14px !important;
+    max-width: 84% !important;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+    text-align: left !important;
+}
+
+.chat-bubble-user * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* AGENT BUBBLE: LEFT-ALIGNED (DARK SLATE WITH CYAN BORDER) */
+.chat-row-agent {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .chat-bubble-agent {
-    background: #0f172a;
-    border: 1px solid #38bdf8;
-    border-radius: 12px 12px 12px 2px;
-    padding: 12px 16px;
-    margin-bottom: 10px;
-    font-size: 0.95rem;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    color: #f8fafc !important;
+    border: 1.5px solid #38bdf8 !important;
+    border-radius: 16px 16px 16px 3px !important;
+    padding: 12px 16px !important;
+    max-width: 88% !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    text-align: left !important;
+}
+
+.chat-bubble-agent strong {
+    color: #38bdf8 !important;
+    -webkit-text-fill-color: #38bdf8 !important;
+}
+
+.chat-bubble-agent div {
+    color: #f1f5f9 !important;
+    -webkit-text-fill-color: #f1f5f9 !important;
 }
 
 /* Hero & Results Card */
@@ -440,7 +489,7 @@ with st.sidebar:
         <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 12px;">
             <span style="color: #38bdf8; font-weight: 700; font-size: 0.9rem;">🤖 24/7 AI Copilot Active</span>
             <p style="color: #cbd5e1; font-size: 0.82rem; margin: 4px 0 0 0;">
-                Click the animated <b>💬 Ask Nova AI</b> button in the bottom-right corner anytime. 100% free, zero key required.
+                Click the floating <b>💬 Ask Nova AI</b> button anytime. 100% free, zero key required.
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -692,7 +741,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.dataframe(df_history[["Timestamp", "Category", "From", "To"]], use_container_width=True)
 
 # =============================================================================
-# 7. SIDE CHATBOT CARD (OPENS ON RIGHT SIDE / CORNER - STAYS OPEN UNTIL CUT)
+# 7. TWO-SIDED CHATBOT WIDGET (OPENS ON RIGHT CORNER - PERSISTENT UNTIL CUT)
 # =============================================================================
 if st.session_state.get("chat_open", False):
     with st.container(key="side_chat_card"):
@@ -723,25 +772,31 @@ if st.session_state.get("chat_open", False):
         if qc2.button("🇵🇰 50 miles in km", use_container_width=True, key="float_qp2"):
             selected_prompt = "50 miles ko km me convert karo"
 
-        # Chat message history container
-        chat_box = st.container(height=260)
+        # Chat message history container (Two-sided bubble layout)
+        chat_box = st.container(height=270)
         with chat_box:
             for msg in st.session_state.chat_messages:
                 if msg["role"] == "user":
+                    # USER ON THE RIGHT SIDE (Vibrant Royal Blue Bubble)
                     st.markdown(f"""
-                    <div class="chat-bubble-user">
-                        <strong style="color: #38bdf8 !important;">👤 You:</strong>
-                        <div style="color: #ffffff !important; margin-top: 2px;">{msg['content']}</div>
+                    <div class="chat-row-user">
+                        <div class="chat-bubble-user">
+                            <div style="font-size: 0.75rem; color: #bae6fd !important; font-weight: 700; margin-bottom: 2px;">👤 You</div>
+                            <div style="font-size: 0.95rem; line-height: 1.4;">{msg['content']}</div>
+                        </div>
                     </div>
                     """, unsafe_allow_html=True)
                 else:
+                    # AGENT ON THE LEFT SIDE (Dark Slate + Cyan Border)
                     st.markdown(f"""
-                    <div class="chat-bubble-agent">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
-                            <strong style="color: #38bdf8 !important;">🤖 Nova:</strong>
-                            <small style="color: #94a3b8 !important;">{msg.get('provider', '24/7 Engine')}</small>
+                    <div class="chat-row-agent">
+                        <div class="chat-bubble-agent">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <span style="font-size: 0.8rem; color: #38bdf8 !important; font-weight: 800;">🤖 Nova AI</span>
+                                <small style="font-size: 0.7rem; color: #94a3b8 !important;">{msg.get('provider', '24/7 Engine')}</small>
+                            </div>
+                            <div style="font-size: 0.95rem; line-height: 1.45;">{msg['content']}</div>
                         </div>
-                        <div style="color: #ffffff !important; line-height: 1.4;">{msg['content']}</div>
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -776,7 +831,7 @@ if st.session_state.get("chat_open", False):
                 st.session_state.chat_messages = [st.session_state.chat_messages[0]]
                 st.rerun()
 
-# Floating Aesthetic Corner Button Trigger (Fixed at bottom-right corner with Animation)
+# Floating Aesthetic Corner Button Trigger (Lifted Higher + Triple Animation)
 fab_label = "✖ Cut Nova AI" if st.session_state.get("chat_open", False) else "💬 Ask Nova AI"
 if st.button(fab_label, key="fab_chat_trigger", help="Toggle 24/7 AI Unit Copilot"):
     st.session_state.chat_open = not st.session_state.get("chat_open", False)
