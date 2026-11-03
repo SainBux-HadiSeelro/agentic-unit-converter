@@ -1,6 +1,5 @@
 """
-OmniConvert AI - Autonomous Unit Intelligence & 24/7 Live Customer Copilot
-Architected & Developed by Hadi Seelro (Agentic AI Developer)
+OmniConvert AI - Autonomous Unit Intelligence & 24/7 Live Copilot
 Conforms to NIST SP 811, BIPM SI & ISO 80000 standards.
 """
 import streamlit as st
@@ -22,10 +21,10 @@ from agent.chatbot import OmniAgentChatbot
 from agent.knowledge_base import PROJECT_KNOWLEDGE_BASE, get_quick_prompts
 
 # -----------------------------------------------------------------------------
-# 1. Page Configuration & Styling
+# 1. Page Configuration & Modern Theme Styling
 # -----------------------------------------------------------------------------
 st.set_page_config(
-    page_title="OmniConvert AI | Autonomous Unit Intelligence",
+    page_title="OmniConvert AI | Fast & Intelligent Unit Converter",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -33,115 +32,147 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
-/* Modern Cyber-Glassmorphism Theme */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+/* Modern Clean Inter & JetBrains Typography */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 html, body, [class*="css"] {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 code, pre {
     font-family: 'JetBrains Mono', monospace !important;
 }
 
-/* Background gradient styling */
+/* Background Theme */
 .stApp {
-    background: radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.05), transparent 30%),
-                radial-gradient(circle at 85% 85%, rgba(79, 172, 254, 0.05), transparent 30%),
+    background: radial-gradient(circle at 20% 15%, rgba(14, 165, 233, 0.08), transparent 40%),
+                radial-gradient(circle at 80% 85%, rgba(99, 102, 241, 0.08), transparent 40%),
                 #0b0f19;
-    color: #f1f5f9;
+    color: #f8fafc;
 }
 
-/* Glassmorphism Card Containers */
-.glass-card {
-    background: rgba(22, 27, 46, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(12px);
-    transition: all 0.3s ease;
-    margin-bottom: 20px;
+/* Header & Title Styling */
+.main-header {
+    margin-bottom: 24px;
 }
 
-.glass-card:hover {
-    border-color: rgba(0, 242, 254, 0.3);
-    box-shadow: 0 12px 35px rgba(0, 242, 254, 0.12);
-}
-
-/* Hero Badge */
-.hero-badge {
+.hero-pill {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(0, 242, 254, 0.12);
-    border: 1px solid rgba(0, 242, 254, 0.35);
-    color: #00f2fe;
+    background: rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #38bdf8;
     padding: 6px 14px;
     border-radius: 9999px;
     font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     margin-bottom: 12px;
 }
 
-.live-indicator {
+.live-dot {
     width: 8px;
     height: 8px;
     background-color: #10b981;
     border-radius: 50%;
     display: inline-block;
     box-shadow: 0 0 10px #10b981;
-    animation: pulse 2s infinite;
+    animation: pulse-dot 2s infinite;
 }
 
-@keyframes pulse {
+@keyframes pulse-dot {
     0% { transform: scale(0.95); opacity: 0.8; }
     50% { transform: scale(1.3); opacity: 1; }
     100% { transform: scale(0.95); opacity: 0.8; }
 }
 
-/* Big Display Result Card */
-.result-box {
-    background: linear-gradient(135deg, rgba(16, 24, 48, 0.95) 0%, rgba(26, 36, 72, 0.85) 100%);
-    border: 1px solid rgba(79, 172, 254, 0.3);
+.header-title {
+    margin: 0;
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.header-gradient-text {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header-desc {
+    color: #94a3b8;
+    margin-top: 6px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+/* Glassmorphism Clean Cards */
+.converter-card {
+    background: rgba(18, 24, 38, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(16px);
+    margin-bottom: 20px;
+}
+
+/* Ultra Clean Result Display Box */
+.result-container {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.3);
     border-radius: 20px;
-    padding: 28px;
+    padding: 26px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
 }
 
-.result-box::before {
+.result-container::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #00f2fe, #4facfe, #00c6ff);
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
 }
 
-.result-value {
-    font-size: 2.8rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1.2;
-    margin: 8px 0;
-}
-
-.result-unit-label {
-    font-size: 1.1rem;
+.result-caption {
+    font-size: 0.9rem;
     color: #94a3b8;
-    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+}
+
+.result-number {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 10px 0;
+    word-break: break-word;
+    letter-spacing: -0.02em;
+}
+
+.result-badge {
+    display: inline-block;
+    background: rgba(14, 165, 233, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #38bdf8;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    font-size: 1.1rem;
+    font-weight: 700;
 }
 
 /* Chat Assistant Bubbles */
-.chat-bubble-user {
+.chat-user {
     background: linear-gradient(135deg, #1e293b, #334155);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px 16px 4px 16px;
@@ -150,9 +181,9 @@ code, pre {
     color: #f8fafc;
 }
 
-.chat-bubble-agent {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.85));
-    border: 1px solid rgba(0, 242, 254, 0.25);
+.chat-assistant {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+    border: 1px solid rgba(56, 189, 248, 0.25);
     border-radius: 16px 16px 16px 4px;
     padding: 16px 20px;
     margin-bottom: 14px;
@@ -160,16 +191,27 @@ code, pre {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* Quick prompt chips */
-.prompt-chip-btn {
-    border-radius: 20px !important;
-    font-size: 0.85rem !important;
+/* Streamlit native widget polish */
+div[data-testid="stMetricValue"] {
+    font-size: 2rem !important;
+    color: #38bdf8 !important;
+}
+
+.stButton > button {
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+.stButton > button:hover {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.25) !important;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
 }
 ::-webkit-scrollbar-track {
     background: #0b0f19;
@@ -179,7 +221,7 @@ code, pre {
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #00f2fe;
+    background: #38bdf8;
 }
 </style>
 """
@@ -196,14 +238,13 @@ if "chat_messages" not in st.session_state:
         {
             "role": "assistant",
             "content": (
-                "👋 **Hello! I am Nova, your 24/7 OmniConvert AI Copilot.**\n\n"
-                "I was built by **Hadi Seelro** to handle real-time unit conversions, explain mathematical formulas, "
-                "troubleshoot calculations, and assist customers 24/7.\n\n"
+                "👋 **Hello! I am Nova, your 24/7 AI Unit Copilot.**\n\n"
+                "I can convert units, explain formulas step-by-step, and answer any physics or math queries.\n\n"
                 "You can talk to me in **English** or **Roman Urdu**! Try asking:\n"
                 "- *'Convert 120 km/h to mph'*\n"
                 "- *'50 miles ko km me convert karo'*\n"
-                "- *'Explain the temperature conversion formula'*\n"
-                "- *'Tell me about the developer and architecture'*"
+                "- *'Explain temperature conversion formula'*\n"
+                "- *'100 celsius ko fahrenheit me badlo'*"
             ),
             "timestamp": datetime.now().strftime("%H:%M:%S")
         }
@@ -213,22 +254,22 @@ if "source_value" not in st.session_state:
     st.session_state.source_value = 1.0
 
 # -----------------------------------------------------------------------------
-# 3. Sidebar Configuration & Architecture Controls
+# 3. Sidebar Configuration (Clean & Simple)
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-            <span style="font-size: 2rem;">⚡</span>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <span style="font-size: 2.2rem;">⚡</span>
             <div>
-                <h3 style="margin: 0; padding: 0; font-size: 1.25rem; font-weight: 800; color: #fff;">OmniConvert AI</h3>
-                <span style="font-size: 0.75rem; color: #00f2fe; font-weight: 600;">v2.0.0-AGENTIC</span>
+                <h3 style="margin: 0; padding: 0; font-size: 1.3rem; font-weight: 800; color: #fff;">OmniConvert AI</h3>
+                <span style="font-size: 0.75rem; color: #38bdf8; font-weight: 700; letter-spacing: 0.05em;">SMART CONVERTER</span>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
-        <div class="hero-badge">
-            <span class="live-indicator"></span> 24/7 Agent Active
+        <div class="hero-pill">
+            <span class="live-dot"></span> System Online & Ready
         </div>
     """, unsafe_allow_html=True)
 
@@ -236,61 +277,51 @@ with st.sidebar:
         "Navigation Mode:",
         [
             "⚡ Multi-Category Converter",
-            "🧠 Agentic NLU Converter (English / Roman Urdu)",
-            "🤖 24/7 Customer AI Copilot"
+            "💬 Smart NLU (English & Urdu)",
+            "🤖 24/7 AI Copilot"
         ],
         index=0
     )
 
     st.markdown("---")
-    st.markdown("#### ⚙️ Precision & Mathematics")
-    precision = st.slider("Decimal Precision", min_value=1, max_value=10, value=4)
+    st.markdown("#### ⚙️ Settings & Formatting")
+    precision = st.slider("Decimal Places", min_value=1, max_value=8, value=4)
     use_scientific = st.checkbox("Scientific Notation ($1.0 \\times 10^n$)", value=False)
 
-    st.markdown("---")
-    st.markdown("#### 🧠 Copilot Cognitive Engine")
-    provider_choice = st.selectbox(
-        "Provider Gateway:",
-        ["Auto / Built-in 24/7 (Zero Downtime)", "Google Gemini (Live)", "OpenAI (Live)"],
-        index=0
-    )
-    user_api_key = st.text_input(
-        "Optional API Key (for Live LLM)",
-        type="password",
-        help="Leave blank to run 100% offline with our resilient deterministic ReAct engine."
-    )
-
-    st.markdown("---")
-    st.markdown("#### 👨‍💻 Developer & Portfolio")
-    st.markdown("""
-    **Architected by:** [Hadi Seelro](https://github.com/SainBux-HadiSeelro)  
-    *Agentic AI Developer & Full-Stack Systems Engineer*  
-    - 📁 [GitHub Repository](https://github.com/SainBux-HadiSeelro)  
-    - 📋 [System Architecture SPEC](SPEC.md)  
-    - 🛡️ Standard: NIST SP 811 & IEEE 830
-    """)
+    # Optional Copilot Settings (Clean Collapsible)
+    with st.expander("🤖 AI Provider Settings (Optional)"):
+        provider_choice = st.selectbox(
+            "Provider:",
+            ["Auto / Built-in 24/7 (Zero Downtime)", "Google Gemini (Live)", "OpenAI (Live)"],
+            index=0
+        )
+        user_api_key = st.text_input(
+            "API Key (Optional)",
+            type="password",
+            help="Leave blank to run 100% offline with zero downtime."
+        )
 
 # -----------------------------------------------------------------------------
 # 4. Mode 1: Standard & Multi-Category Interactive Converter
 # -----------------------------------------------------------------------------
 if app_mode == "⚡ Multi-Category Converter":
     st.markdown("""
-        <div style="margin-bottom: 24px;">
-            <div class="hero-badge"><span class="live-indicator"></span> Real-Time Multi-Domain Physics Engine</div>
-            <h1 style="margin: 0; font-size: 2.4rem; font-weight: 800; color: #fff;">
-                OmniConvert <span style="background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Intelligence</span>
+        <div class="main-header">
+            <div class="hero-pill"><span class="live-dot"></span> High-Precision Physics Engine</div>
+            <h1 class="header-title">
+                Smart <span class="header-gradient-text">Unit Converter</span>
             </h1>
-            <p style="color: #94a3b8; margin-top: 6px; font-size: 1.05rem;">
-                High-precision unit transformations across 10 physical dimensions with live mathematical proofs and LaTeX derivations.
+            <p class="header-desc">
+                Instant, accurate conversions across 10 physical dimensions with step-by-step mathematical proofs.
             </p>
         </div>
     """, unsafe_allow_html=True)
 
-    # Category Selector Tabs with dynamic icons
+    # Category Selector
     categories = get_categories()
     category_labels = [f"{CATEGORY_ICONS.get(cat, '📐')} {cat}" for cat in categories]
     selected_cat_idx = st.selectbox(
-        "Select Physical Dimension:",
+        "Choose Category:",
         options=range(len(categories)),
         format_func=lambda i: category_labels[i],
         index=0
@@ -301,71 +332,78 @@ if app_mode == "⚡ Multi-Category Converter":
     unit_keys = list(units_dict.keys())
     unit_display_names = [f"{units_dict[k].name} ({units_dict[k].symbol})" for k in unit_keys]
 
-    st.markdown("---")
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # State keys for swap feature
+    from_key_state = f"from_{selected_category}"
+    to_key_state = f"to_{selected_category}"
+
+    if from_key_state not in st.session_state:
+        st.session_state[from_key_state] = 0
+    if to_key_state not in st.session_state:
+        st.session_state[to_key_state] = 1 if len(unit_keys) > 1 else 0
 
     # Inputs layout
     col1, col_swap, col2 = st.columns([5, 1, 5])
 
-    # Default indices
-    from_default_idx = 0
-    to_default_idx = 1 if len(unit_keys) > 1 else 0
-
     with col1:
-        st.markdown(f"#### From ({selected_category})")
+        st.markdown(f"**From ({selected_category})**")
         from_idx = st.selectbox(
-            "Source Unit",
+            "From Unit",
             options=range(len(unit_keys)),
             format_func=lambda i: unit_display_names[i],
-            index=from_default_idx,
-            key=f"from_{selected_category}"
+            key=from_key_state,
+            label_visibility="collapsed"
         )
         source_key = unit_keys[from_idx]
 
-        # Numeric value with preset helper chips
+        # Numeric value input
         source_val = st.number_input(
-            "Enter numerical quantity:",
+            "Enter Value:",
             value=float(st.session_state.source_value),
             format="%.4f",
             key=f"val_{selected_category}"
         )
         st.session_state.source_value = source_val
 
-        # Quick preset buttons
-        c_p1, c_p2, c_p3, c_p4 = st.columns(4)
-        if c_p1.button("+1", use_container_width=True):
+        # Quick preset helper buttons
+        p1, p2, p3, p4 = st.columns(4)
+        if p1.button("+1", use_container_width=True, help="Add 1"):
             st.session_state.source_value = source_val + 1.0
             st.rerun()
-        if c_p2.button("+10", use_container_width=True):
+        if p2.button("+10", use_container_width=True, help="Add 10"):
             st.session_state.source_value = source_val + 10.0
             st.rerun()
-        if c_p3.button("100", use_container_width=True):
+        if p3.button("100", use_container_width=True, help="Set to 100"):
             st.session_state.source_value = 100.0
             st.rerun()
-        if c_p4.button("Reset", use_container_width=True):
+        if p4.button("Reset", use_container_width=True, help="Reset to 1"):
             st.session_state.source_value = 1.0
             st.rerun()
 
     with col_swap:
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        if st.button("⇄", help="Swap Source and Target Units", use_container_width=True):
-            # Handled dynamically via inverted indices
-            pass
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button("⇄", help="Swap From & To Units", use_container_width=True):
+            curr_from = st.session_state[from_key_state]
+            curr_to = st.session_state[to_key_state]
+            st.session_state[from_key_state] = curr_to
+            st.session_state[to_key_state] = curr_from
+            st.rerun()
 
     with col2:
-        st.markdown(f"#### To ({selected_category})")
+        st.markdown(f"**To ({selected_category})**")
         to_idx = st.selectbox(
-            "Target Unit",
+            "To Unit",
             options=range(len(unit_keys)),
             format_func=lambda i: unit_display_names[i],
-            index=to_default_idx,
-            key=f"to_{selected_category}"
+            key=to_key_state,
+            label_visibility="collapsed"
         )
         target_key = unit_keys[to_idx]
 
         # Execute conversion instantly
         conversion = convert(source_val, source_key, target_key)
 
-        # Format number based on settings
         if conversion.success:
             if use_scientific:
                 formatted_val = f"{conversion.target_value:.{precision}e}"
@@ -373,10 +411,10 @@ if app_mode == "⚡ Multi-Category Converter":
                 formatted_val = f"{conversion.target_value:,.{precision}f}".rstrip('0').rstrip('.') if '.' in f"{conversion.target_value:.{precision}f}" else f"{conversion.target_value:.0f}"
 
             st.markdown(f"""
-                <div class="result-box">
-                    <div class="result-unit-label">Converted Quantity</div>
-                    <div class="result-value">{formatted_val}</div>
-                    <div style="color: #38bdf8; font-weight: 600; font-size: 1.15rem;">
+                <div class="result-container">
+                    <div class="result-caption">Converted Result</div>
+                    <div class="result-number">{formatted_val}</div>
+                    <div class="result-badge">
                         {conversion.target_unit} ({conversion.target_symbol})
                     </div>
                 </div>
@@ -395,21 +433,20 @@ if app_mode == "⚡ Multi-Category Converter":
         else:
             st.error(f"⚠️ {conversion.error_message}")
 
-    # Mathematical Breakdown Card
+    # Step-by-Step Derivation
     if conversion.success:
         st.markdown("<br>", unsafe_allow_html=True)
-        with st.expander("📐 Step-by-Step Mathematical Derivation & LaTeX Proof", expanded=True):
-            st.markdown("##### Rigorous Equation:")
+        with st.expander("📐 View Step-by-Step Formula & Explanation", expanded=False):
+            st.markdown("**Mathematical Formula:**")
             st.latex(conversion.formula_latex)
-            st.markdown("##### Step-by-Step Normalization Steps:")
+            st.markdown("**Calculation Steps:**")
             st.code(conversion.step_by_step, language="text")
-            st.caption(f"Standards Reference: {selected_category} operations mapped via {PROJECT_KNOWLEDGE_BASE['scientific_standards'].get(selected_category.lower() + '_base', 'SI Standard Conventions')}")
 
     # Conversion History Section
     if st.session_state.conversion_history:
         st.markdown("---")
         h_col1, h_col2 = st.columns([8, 2])
-        h_col1.markdown("### 🕒 Session Conversion Audit Trail")
+        h_col1.markdown("### 🕒 Recent Conversions")
         with h_col2:
             if st.button("🗑️ Clear History", use_container_width=True):
                 st.session_state.conversion_history = []
@@ -422,40 +459,40 @@ if app_mode == "⚡ Multi-Category Converter":
         with d_col1:
             csv_data = df_history.to_csv(index=False).encode('utf-8')
             st.download_button(
-                label="📥 Download Audit Trail (CSV)",
+                label="📥 Download History (CSV)",
                 data=csv_data,
-                file_name=f"omniconvert_audit_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
                 mime="text/csv",
                 use_container_width=True
             )
         with d_col2:
             json_data = json.dumps(st.session_state.conversion_history, indent=2).encode('utf-8')
             st.download_button(
-                label="📥 Download Audit Trail (JSON)",
+                label="📥 Download History (JSON)",
                 data=json_data,
-                file_name=f"omniconvert_audit_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
                 mime="application/json",
                 use_container_width=True
             )
 
 # -----------------------------------------------------------------------------
-# 5. Mode 2: Agentic Natural Language Converter
+# 5. Mode 2: Natural Language Converter (English & Roman Urdu)
 # -----------------------------------------------------------------------------
-elif app_mode == "🧠 Agentic NLU Converter (English / Roman Urdu)":
+elif app_mode == "💬 Smart NLU (English & Urdu)":
     st.markdown("""
-        <div style="margin-bottom: 24px;">
-            <div class="hero-badge"><span class="live-indicator"></span> Conversational Intent Parser</div>
-            <h1 style="margin: 0; font-size: 2.4rem; font-weight: 800; color: #fff;">
-                Agentic <span style="background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NLU Converter</span>
+        <div class="main-header">
+            <div class="hero-pill"><span class="live-dot"></span> Bilingual Language Understanding</div>
+            <h1 class="header-title">
+                Smart <span class="header-gradient-text">Language Converter</span>
             </h1>
-            <p style="color: #94a3b8; margin-top: 6px; font-size: 1.05rem;">
-                Powered by a bilingual parser that extracts numerical values, source units, and target units from natural language prompts in <b>English</b> or <b>Roman Urdu</b>.
+            <p class="header-desc">
+                Type naturally in plain <b>English</b> or <b>Roman Urdu</b>. The system understands your query and computes the result instantly.
             </p>
         </div>
     """, unsafe_allow_html=True)
 
-    # Prompt suggestions
-    st.markdown("##### Quick Example Prompts (Click to test):")
+    # Quick example chips
+    st.markdown("**Quick Examples (Click to try):**")
     q_col1, q_col2, q_col3 = st.columns(3)
     test_query = ""
     if q_col1.button("🚗 120 km/h to mph", use_container_width=True):
@@ -466,9 +503,9 @@ elif app_mode == "🧠 Agentic NLU Converter (English / Roman Urdu)":
         test_query = "100 celsius ko fahrenheit me badlo"
 
     user_query = st.text_input(
-        "Enter your conversion command in English or Roman Urdu:",
+        "Enter your query in English or Roman Urdu:",
         value=test_query,
-        placeholder="e.g., 'Convert 75 miles to km' or '500 gram kitne kg hote hain' or '35 celsius ko fahrenheit me convert karo'"
+        placeholder="e.g. 'Convert 75 miles to km' or '500 gram kitne kg hote hain'"
     )
 
     if user_query:
@@ -478,67 +515,64 @@ elif app_mode == "🧠 Agentic NLU Converter (English / Roman Urdu)":
         col_res1, col_res2 = st.columns([4, 6])
 
         with col_res1:
-            st.markdown("#### 🔍 NLU Parameter Extraction")
+            st.markdown("#### 🔍 Parsed Parameters")
             st.markdown(f"""
-            <div class="glass-card">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="color: #94a3b8;">Detected Language:</span>
-                    <strong style="color: #00f2fe;">{nlp_result.detected_language}</strong>
+            <div class="converter-card">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: #94a3b8;">Language:</span>
+                    <strong style="color: #38bdf8;">{nlp_result.detected_language}</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="color: #94a3b8;">Confidence Score:</span>
-                    <strong style="color: #10b981;">{nlp_result.confidence * 100:.1f}%</strong>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: #94a3b8;">Value:</span>
+                    <strong style="color: #ffffff;">{nlp_result.source_value}</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="color: #94a3b8;">Source Value:</span>
-                    <strong>{nlp_result.source_value}</strong>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: #94a3b8;">From:</span>
+                    <strong style="color: #ffffff;">{nlp_result.source_unit}</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="color: #94a3b8;">Source Unit:</span>
-                    <strong>{nlp_result.source_unit}</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="color: #94a3b8;">Target Unit:</span>
-                    <strong>{nlp_result.target_unit}</strong>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: #94a3b8;">To:</span>
+                    <strong style="color: #ffffff;">{nlp_result.target_unit}</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between;">
                     <span style="color: #94a3b8;">Category:</span>
-                    <strong style="color: #f59e0b;">{nlp_result.category or 'Auto'}</strong>
+                    <strong style="color: #38bdf8;">{nlp_result.category or 'Auto'}</strong>
                 </div>
             </div>
             """, unsafe_allow_html=True)
 
         with col_res2:
-            st.markdown("#### 🎯 Execution Output")
+            st.markdown("#### 🎯 Result")
             if nlp_result.success and nlp_result.conversion_result:
                 conv = nlp_result.conversion_result
                 st.markdown(f"""
-                    <div class="result-box">
-                        <div class="result-unit-label">{conv.source_value:g} {conv.source_unit} =</div>
-                        <div class="result-value">{conv.target_value:.6g}</div>
-                        <div style="color: #38bdf8; font-weight: 600; font-size: 1.15rem;">
+                    <div class="result-container">
+                        <div class="result-caption">{conv.source_value:g} {conv.source_unit} =</div>
+                        <div class="result-number">{conv.target_value:.6g}</div>
+                        <div class="result-badge">
                             {conv.target_unit} ({conv.target_symbol})
                         </div>
                     </div>
                 """, unsafe_allow_html=True)
 
-                st.markdown("##### 📐 Mathematical Proof:")
-                st.latex(conv.formula_latex)
+                st.markdown("<br>", unsafe_allow_html=True)
+                with st.expander("📐 View Formula Proof", expanded=False):
+                    st.latex(conv.formula_latex)
             else:
                 st.warning(f"⚠️ {nlp_result.message}")
 
 # -----------------------------------------------------------------------------
 # 6. Mode 3: 24/7 AI Customer Support Copilot
 # -----------------------------------------------------------------------------
-elif app_mode == "🤖 24/7 Customer AI Copilot":
+elif app_mode == "🤖 24/7 AI Copilot":
     st.markdown("""
-        <div style="margin-bottom: 24px;">
-            <div class="hero-badge"><span class="live-indicator"></span> 24/7 Autonomous Customer Care</div>
-            <h1 style="margin: 0; font-size: 2.4rem; font-weight: 800; color: #fff;">
-                Nova <span style="background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AI Copilot</span>
+        <div class="main-header">
+            <div class="hero-pill"><span class="live-dot"></span> 24/7 AI Assistant</div>
+            <h1 class="header-title">
+                Nova <span class="header-gradient-text">AI Copilot</span>
             </h1>
-            <p style="color: #94a3b8; margin-top: 6px; font-size: 1.05rem;">
-                Always-on technical copilot and customer support agent. Live 24/7 with zero downtime, equipped with the complete project knowledge base and real-time conversion tools.
+            <p class="header-desc">
+                Your smart physics and unit conversion companion. Ask questions, request conversions, or understand formulas in English or Roman Urdu.
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -549,13 +583,20 @@ elif app_mode == "🤖 24/7 Customer AI Copilot":
         api_key=user_api_key if user_api_key else None
     )
 
-    # Quick prompt buttons
-    st.markdown("##### 💡 Suggested Inquiries:")
+    # Suggested inquiries chips
+    st.markdown("**Suggested Questions:**")
     quick_cols = st.columns(3)
-    prompts = get_quick_prompts()
+    prompts = [
+        "Convert 100 km/h to mph",
+        "50 miles ko km me convert karo",
+        "Explain temperature conversion formula",
+        "How many meters are in a mile?",
+        "100 celsius ko fahrenheit me badlo",
+        "Convert 5 GB to megabytes"
+    ]
     selected_quick_prompt = None
 
-    for idx, prompt_text in enumerate(prompts[:6]):
+    for idx, prompt_text in enumerate(prompts):
         col = quick_cols[idx % 3]
         if col.button(f"💬 {prompt_text}", key=f"quick_{idx}", use_container_width=True):
             selected_quick_prompt = prompt_text
@@ -568,17 +609,17 @@ elif app_mode == "🤖 24/7 Customer AI Copilot":
         for msg in st.session_state.chat_messages:
             if msg["role"] == "user":
                 st.markdown(f"""
-                <div class="chat-bubble-user">
+                <div class="chat-user">
                     <strong style="color: #38bdf8;">👤 You</strong> <span style="font-size: 0.75rem; color: #94a3b8; float: right;">{msg.get('timestamp', '')}</span>
                     <div style="margin-top: 6px;">{msg['content']}</div>
                 </div>
                 """, unsafe_allow_html=True)
             else:
                 st.markdown(f"""
-                <div class="chat-bubble-agent">
+                <div class="chat-assistant">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <span style="color: #00f2fe; font-weight: 700;">🤖 Nova AI Copilot</span>
-                        <span style="font-size: 0.75rem; background: rgba(0, 242, 254, 0.15); color: #00f2fe; padding: 2px 8px; border-radius: 10px;">
+                        <span style="color: #38bdf8; font-weight: 700;">🤖 Nova Copilot</span>
+                        <span style="font-size: 0.75rem; background: rgba(14, 165, 233, 0.15); color: #38bdf8; padding: 2px 8px; border-radius: 10px;">
                             {msg.get('provider', '24/7 Engine')} • {msg.get('timestamp', '')}
                         </span>
                     </div>
@@ -587,7 +628,7 @@ elif app_mode == "🤖 24/7 Customer AI Copilot":
                 """, unsafe_allow_html=True)
 
     # Chat Input
-    chat_input_val = st.chat_input("Ask Nova anything about units, formulas, project specs, or developer portfolio...")
+    chat_input_val = st.chat_input("Ask Nova any question or conversion command...")
     user_to_send = selected_quick_prompt or chat_input_val
 
     if user_to_send:
@@ -600,7 +641,7 @@ elif app_mode == "🤖 24/7 Customer AI Copilot":
         })
 
         # Process with OmniAgentChatbot
-        with st.spinner("🤖 Nova is reasoning and consulting the project knowledge base..."):
+        with st.spinner("🤖 Nova is thinking..."):
             res = chatbot.process_message(
                 user_message=user_to_send,
                 chat_history=st.session_state.chat_messages[:-1]
@@ -618,19 +659,18 @@ elif app_mode == "🤖 24/7 Customer AI Copilot":
     # Clear chat option
     if len(st.session_state.chat_messages) > 1:
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("🗑️ Clear Conversation History"):
+        if st.button("🗑️ Clear Chat History"):
             st.session_state.chat_messages = [st.session_state.chat_messages[0]]
             st.rerun()
 
 # -----------------------------------------------------------------------------
-# 7. Global Footer & Recruiter Portfolio Highlights
+# 7. Clean Global Footer
 # -----------------------------------------------------------------------------
 st.markdown("---")
 st.markdown("""
-<div style="text-align: center; color: #64748b; font-size: 0.88rem; padding: 20px 0;">
-    <strong>OmniConvert AI</strong> • Engineered with ❤️ by 
-    <a href="https://github.com/SainBux-HadiSeelro" target="_blank" style="color: #00f2fe; text-decoration: none; font-weight: 600;">Hadi Seelro</a>
+<div style="text-align: center; color: #64748b; font-size: 0.88rem; padding: 16px 0;">
+    <strong>OmniConvert AI</strong> • High-Precision Unit Intelligence Engine
     <br/>
-    Autonomous ReAct Pattern • NIST SP 811 & ISO 80000 Compliance • Multilingual Roman Urdu & English NLU
+    Conforms to NIST SP 811 & ISO 80000 Physical Standards • English & Roman Urdu NLU
 </div>
 """, unsafe_allow_html=True)
