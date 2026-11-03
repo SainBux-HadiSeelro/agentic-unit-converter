@@ -21,7 +21,7 @@ from agent.chatbot import OmniAgentChatbot
 from agent.knowledge_base import PROJECT_KNOWLEDGE_BASE, get_quick_prompts
 
 # -----------------------------------------------------------------------------
-# 1. Page Configuration & Guaranteed-Visible High-Contrast Theme
+# 1. Page Configuration & Guaranteed Visibility Theme
 # -----------------------------------------------------------------------------
 st.set_page_config(
     page_title="OmniConvert AI | Smart Unit Converter",
@@ -32,7 +32,9 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
-/* Instant System Fonts - 100% Legibility without Flash of Invisible Text */
+/* =========================================================================
+   1. UNIVERSAL ROOT & APP BACKGROUND
+   ========================================================================= */
 html, body, [class*="css"], .stApp {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
     background-color: #0b0f19 !important;
@@ -40,15 +42,52 @@ html, body, [class*="css"], .stApp {
 }
 
 /* =========================================================================
-   UNIVERSAL TEXT VISIBILITY (FORCE VISIBLE AT ALL TIMES - NEVER ON HOVER ONLY)
+   2. SIDEBAR - GUARANTEED DARK BACKGROUND & PURE WHITE VISIBLE TEXT
    ========================================================================= */
+section[data-testid="stSidebar"],
+section[data-testid="stSidebar"] > div,
+[data-testid="stSidebar"],
+[data-testid="stSidebarContent"],
+div[data-testid="stSidebarUserContent"] {
+    background-color: #0d1322 !important;
+    background: #0d1322 !important;
+    border-right: 2px solid #1e293b !important;
+}
 
-/* All headings, paragraphs, and labels forced to bright visible colors */
+[data-testid="stSidebar"] * {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] h4 {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Sidebar collapse toggle button on mobile */
+[data-testid="collapsedControl"] {
+    background-color: #0284c7 !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+}
+[data-testid="collapsedControl"] svg {
+    fill: #ffffff !important;
+}
+
+/* =========================================================================
+   3. UNIVERSAL TEXT VISIBILITY (HEADINGS, LABELS, PARAGRAPHS)
+   ========================================================================= */
 h1, h2, h3, h4, h5, h6 {
     color: #ffffff !important;
     font-weight: 800 !important;
     opacity: 1 !important;
     visibility: visible !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
 
 p, span, label, strong, b, em, small {
@@ -57,14 +96,12 @@ p, span, label, strong, b, em, small {
     visibility: visible !important;
 }
 
-/* Streamlit markdown container text */
 [data-testid="stMarkdownContainer"] * {
     color: #f1f5f9 !important;
     opacity: 1 !important;
     visibility: visible !important;
 }
 
-/* Explicit input labels */
 .stSelectbox label, .stNumberInput label, .stTextInput label, .stRadio label {
     color: #ffffff !important;
     font-size: 1rem !important;
@@ -72,13 +109,12 @@ p, span, label, strong, b, em, small {
     opacity: 1 !important;
     visibility: visible !important;
     margin-bottom: 6px !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
 
 /* =========================================================================
-   BASEWEB SELECTBOX & DROPDOWN - FIXED INVISIBLE TEXT
+   4. SELECTBOX & DROPDOWN - CRISP & 100% VISIBLE
    ========================================================================= */
-
-/* Selectbox control container */
 div[data-baseweb="select"] > div {
     background-color: #162032 !important;
     border: 1px solid #3b82f6 !important;
@@ -86,7 +122,6 @@ div[data-baseweb="select"] > div {
     color: #ffffff !important;
 }
 
-/* Selected value text inside the selectbox */
 div[data-baseweb="select"] * {
     color: #ffffff !important;
     opacity: 1 !important;
@@ -94,7 +129,6 @@ div[data-baseweb="select"] * {
     -webkit-text-fill-color: #ffffff !important;
 }
 
-/* Dropdown popover menu and options */
 div[data-baseweb="popover"],
 div[data-baseweb="menu"],
 ul[role="listbox"],
@@ -113,9 +147,8 @@ li[role="option"]:hover {
 }
 
 /* =========================================================================
-   INPUT FIELDS (QUANTITY & TEXT) - FIXED INVISIBLE TEXT
+   5. INPUT FIELDS (QUANTITY & TEXT)
    ========================================================================= */
-
 div[data-baseweb="input"] {
     background-color: #162032 !important;
     border: 1px solid #3b82f6 !important;
@@ -132,7 +165,6 @@ div[data-baseweb="input"] input {
     -webkit-text-fill-color: #ffffff !important;
 }
 
-/* Radio buttons and checkboxes */
 div[data-testid="stRadio"] label,
 div[data-testid="stRadio"] span,
 div[data-testid="stCheckbox"] label,
@@ -141,26 +173,12 @@ div[data-testid="stCheckbox"] span {
     font-weight: 600 !important;
     opacity: 1 !important;
     visibility: visible !important;
-}
-
-/* Sidebar text */
-[data-testid="stSidebar"] * {
-    color: #f1f5f9 !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-[data-testid="stSidebar"] h1,
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3,
-[data-testid="stSidebar"] h4 {
-    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
 
 /* =========================================================================
-   BUTTONS
+   6. ALL BUTTONS - INCLUDING DOWNLOAD BUTTONS (HIGH VISIBILITY)
    ========================================================================= */
-
 .stButton > button {
     background-color: #1e293b !important;
     color: #ffffff !important;
@@ -172,35 +190,63 @@ div[data-testid="stCheckbox"] span {
     -webkit-text-fill-color: #ffffff !important;
 }
 
-.stButton > button * {
-    color: #ffffff !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    -webkit-text-fill-color: #ffffff !important;
-}
-
 .stButton > button:hover {
     background-color: #0284c7 !important;
     border-color: #38bdf8 !important;
     color: #ffffff !important;
-    box-shadow: 0 0 12px rgba(56, 189, 248, 0.3) !important;
+}
+
+.stButton > button * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* DOWNLOAD BUTTONS - BRIGHT CYAN-BLUE GRADIENT */
+.stDownloadButton > button,
+[data-testid="stDownloadButton"] > button {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+    color: #ffffff !important;
+    border: 2px solid #38bdf8 !important;
+    border-radius: 12px !important;
+    font-weight: 800 !important;
+    font-size: 1.05rem !important;
+    padding: 12px 24px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    -webkit-text-fill-color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.45) !important;
+}
+
+.stDownloadButton > button:hover,
+[data-testid="stDownloadButton"] > button:hover {
+    background: #0ea5e9 !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 22px rgba(56, 189, 248, 0.6) !important;
+}
+
+.stDownloadButton > button *,
+[data-testid="stDownloadButton"] > button * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 /* =========================================================================
-   CUSTOM CARD & RESULT CONTAINERS
+   7. RESULT BOX & CARDS
    ========================================================================= */
-
 .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(14, 165, 233, 0.2);
+    background: rgba(14, 165, 233, 0.25);
     border: 1px solid #38bdf8;
     color: #38bdf8 !important;
     padding: 6px 14px;
     border-radius: 9999px;
     font-size: 0.85rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     margin-bottom: 12px;
@@ -234,7 +280,6 @@ div[data-testid="stCheckbox"] span {
     margin-bottom: 24px;
 }
 
-/* Converted Result Display Box */
 .result-card-box {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     border: 2px solid #38bdf8;
@@ -273,7 +318,6 @@ div[data-testid="stCheckbox"] span {
     font-weight: 800;
 }
 
-/* Info Overview Card */
 .info-card {
     background: #111827;
     border: 1px solid #334155;
@@ -305,8 +349,17 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # -----------------------------------------------------------------------------
 # 2. Session State Initialization
 # -----------------------------------------------------------------------------
+# Pre-seed initial conversion so history and download buttons are ALWAYS visible!
 if "conversion_history" not in st.session_state:
-    st.session_state.conversion_history = []
+    st.session_state.conversion_history = [
+        {
+            "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "Category": "Length",
+            "From": "1 km",
+            "To": "1000 m",
+            "Formula": "1\\text{ km} = 1000\\text{ m}"
+        }
+    ]
 
 if "chat_messages" not in st.session_state:
     st.session_state.chat_messages = [
@@ -329,15 +382,15 @@ if "source_value" not in st.session_state:
     st.session_state.source_value = 1.0
 
 # -----------------------------------------------------------------------------
-# 3. Sidebar Controls (Visible & High Contrast)
+# 3. Sidebar Controls (Guaranteed Dark & Visible)
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
-            <span style="font-size: 2.2rem;">⚡</span>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding: 10px 0;">
+            <span style="font-size: 2.4rem;">⚡</span>
             <div>
-                <h3 style="margin: 0; padding: 0; font-size: 1.3rem; font-weight: 800; color: #ffffff;">OmniConvert AI</h3>
-                <span style="font-size: 0.75rem; color: #38bdf8; font-weight: 800; letter-spacing: 0.05em;">SMART CONVERTER</span>
+                <h2 style="margin: 0; padding: 0; font-size: 1.4rem; font-weight: 800; color: #ffffff !important;">OmniConvert AI</h2>
+                <span style="font-size: 0.8rem; color: #38bdf8 !important; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;">Smart Converter</span>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -524,38 +577,42 @@ if app_mode == "⚡ Quick Unit Converter":
             st.markdown("**Calculation Steps:**")
             st.code(conversion.step_by_step, language="text")
 
-    # Conversion History Section
-    if st.session_state.conversion_history:
-        st.markdown("---")
-        h_col1, h_col2 = st.columns([8, 2])
-        h_col1.markdown("### 🕒 Recent Conversions")
-        with h_col2:
-            if st.button("🗑️ Clear History", use_container_width=True):
-                st.session_state.conversion_history = []
-                st.rerun()
+    # =========================================================================
+    # ALWAYS VISIBLE: Download Buttons & Conversion Audit Trail
+    # =========================================================================
+    st.markdown("---")
+    h_col1, h_col2 = st.columns([8, 2])
+    h_col1.markdown("### 📥 Download & Audit Trail")
+    with h_col2:
+        if st.button("🗑️ Clear History", use_container_width=True):
+            st.session_state.conversion_history = []
+            st.rerun()
 
-        df_history = pd.DataFrame(st.session_state.conversion_history)
-        st.dataframe(df_history[["Timestamp", "Category", "From", "To"]], use_container_width=True)
+    # Prominent Download Buttons (Always Rendered & Visible)
+    df_history = pd.DataFrame(st.session_state.conversion_history) if st.session_state.conversion_history else pd.DataFrame([{"Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "Category": selected_category, "From": f"{source_val:g} {conversion.source_symbol}", "To": f"{conversion.target_value:.6g} {conversion.target_symbol}"}])
 
-        d_col1, d_col2 = st.columns(2)
-        with d_col1:
-            csv_data = df_history.to_csv(index=False).encode('utf-8')
-            st.download_button(
-                label="📥 Download CSV",
-                data=csv_data,
-                file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
-                mime="text/csv",
-                use_container_width=True
-            )
-        with d_col2:
-            json_data = json.dumps(st.session_state.conversion_history, indent=2).encode('utf-8')
-            st.download_button(
-                label="📥 Download JSON",
-                data=json_data,
-                file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
-                mime="application/json",
-                use_container_width=True
-            )
+    d_col1, d_col2 = st.columns(2)
+    with d_col1:
+        csv_data = df_history.to_csv(index=False).encode('utf-8')
+        st.download_button(
+            label="📥 Download Audit Data (CSV)",
+            data=csv_data,
+            file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+            mime="text/csv",
+            use_container_width=True
+        )
+    with d_col2:
+        json_data = json.dumps(st.session_state.conversion_history, indent=2).encode('utf-8')
+        st.download_button(
+            label="📥 Download Audit Data (JSON)",
+            data=json_data,
+            file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+            mime="application/json",
+            use_container_width=True
+        )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.dataframe(df_history[["Timestamp", "Category", "From", "To"]], use_container_width=True)
 
 # -----------------------------------------------------------------------------
 # 5. Mode 2: Natural Language Converter (English & Roman Urdu)
