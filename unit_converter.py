@@ -3,10 +3,11 @@ OmniConvert AI - Fast, High-Precision Unit Intelligence & 24/7 AI Copilot
 Conforms to NIST SP 811, BIPM SI & ISO 80000 physical standards.
 """
 import streamlit as st
-import pandas as pd
 import json
+import csv
+import io
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List, Dict, Any
 
 from engine.converter import (
     convert,
@@ -19,6 +20,40 @@ from engine.converter import (
 from engine.nlp_parser import parse_conversion_query
 from agent.chatbot import OmniAgentChatbot
 from agent.knowledge_base import PROJECT_KNOWLEDGE_BASE, get_quick_prompts
+
+# -----------------------------------------------------------------------------
+# Fast In-Memory Helpers & Resource Caches (Zero-Lag Execution)
+# -----------------------------------------------------------------------------
+@st.cache_resource
+def get_ai_copilot() -> OmniAgentChatbot:
+    """Caches 24/7 AI Copilot in memory to eliminate instantiation overhead."""
+    return OmniAgentChatbot(provider="auto")
+
+def export_history_csv(history: list) -> bytes:
+    """Fast, zero-overhead CSV generation using Python standard library."""
+    data = history if history else [{
+        "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "Category": "Length",
+        "From": "1 km",
+        "To": "1000 m",
+        "Formula": "1 km = 1000 m"
+    }]
+    output = io.StringIO()
+    writer = csv.DictWriter(output, fieldnames=["Timestamp", "Category", "From", "To", "Formula"])
+    writer.writeheader()
+    writer.writerows(data)
+    return output.getvalue().encode("utf-8")
+
+def export_history_json(history: list) -> bytes:
+    """Fast, zero-overhead JSON serialization."""
+    data = history if history else [{
+        "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "Category": "Length",
+        "From": "1 km",
+        "To": "1000 m",
+        "Formula": "1 km = 1000 m"
+    }]
+    return json.dumps(data, indent=2).encode("utf-8")
 
 # -----------------------------------------------------------------------------
 # 1. Page Configuration & Guaranteed Visibility Theme
@@ -703,7 +738,7 @@ with tab_nlu:
                 st.warning(f"⚠️ {nlp_result.message}")
 
 # =============================================================================
-# 6. ALWAYS VISIBLE: Download Buttons & Conversion Audit Trail
+# 6. ALWAYS VISIBLE: Download Buttons & Instant Native Audit Trail
 # =============================================================================
 st.markdown("---")
 h_col1, h_col2 = st.columns([8, 2])
@@ -713,24 +748,28 @@ with h_col2:
         st.session_state.conversion_history = []
         st.rerun()
 
-df_history = pd.DataFrame(st.session_state.conversion_history) if st.session_state.conversion_history else pd.DataFrame([{"Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "Category": "Length", "From": "1 km", "To": "1000 m"}])
+history_list = st.session_state.conversion_history if st.session_state.conversion_history else [{
+    "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    "Category": "Length",
+    "From": "1 km",
+    "To": "1000 m",
+    "Formula": "1 km = 1000 m"
+}]
 
 d_col1, d_col2 = st.columns(2)
 with d_col1:
-    csv_data = df_history.to_csv(index=False).encode('utf-8')
     st.download_button(
         label="📥 Download Audit Data (CSV)",
-        data=csv_data,
+        data=export_history_csv(st.session_state.conversion_history),
         file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
         mime="text/csv",
         use_container_width=True,
         key="dl_csv_btn"
     )
 with d_col2:
-    json_data = json.dumps(st.session_state.conversion_history, indent=2).encode('utf-8')
     st.download_button(
         label="📥 Download Audit Data (JSON)",
-        data=json_data,
+        data=export_history_json(st.session_state.conversion_history),
         file_name=f"conversion_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
         mime="application/json",
         use_container_width=True,
@@ -738,7 +777,35 @@ with d_col2:
     )
 
 st.markdown("<br>", unsafe_allow_html=True)
-st.dataframe(df_history[["Timestamp", "Category", "From", "To"]], use_container_width=True)
+
+# Instant Native Dark Table (Zero-JS Chunk Delay, 100% Crisp Visible Text)
+table_rows = "".join([
+    f"""<tr style="border-bottom: 1px solid #1e293b; background: rgba(15, 23, 42, 0.6);">
+        <td style="padding: 10px 14px; color: #94a3b8 !important; font-family: monospace; font-size: 0.88rem;">{row.get('Timestamp', '')}</td>
+        <td style="padding: 10px 14px; color: #38bdf8 !important; font-weight: 700;">{row.get('Category', '')}</td>
+        <td style="padding: 10px 14px; color: #ffffff !important; font-weight: 600;">{row.get('From', '')}</td>
+        <td style="padding: 10px 14px; color: #10b981 !important; font-weight: 700;">{row.get('To', '')}</td>
+    </tr>"""
+    for row in reversed(history_list[-25:])
+])
+
+st.markdown(f"""
+<div style="overflow-x: auto; border: 1.5px solid #334155; border-radius: 12px; background: #0f172a; box-shadow: 0 4px 20px rgba(0,0,0,0.35);">
+    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem;">
+        <thead>
+            <tr style="border-bottom: 2px solid #0284c7; background: #162032;">
+                <th style="padding: 12px 14px; color: #94a3b8 !important; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase;">⏱️ Timestamp</th>
+                <th style="padding: 12px 14px; color: #38bdf8 !important; font-weight: 800; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase;">📂 Category</th>
+                <th style="padding: 12px 14px; color: #ffffff !important; font-weight: 800; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase;">📤 From</th>
+                <th style="padding: 12px 14px; color: #10b981 !important; font-weight: 800; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase;">📥 To</th>
+            </tr>
+        </thead>
+        <tbody>
+            {table_rows}
+        </tbody>
+    </table>
+</div>
+""", unsafe_allow_html=True)
 
 # =============================================================================
 # 7. TWO-SIDED CHATBOT WIDGET (OPENS ON RIGHT CORNER - PERSISTENT UNTIL CUT)
@@ -811,7 +878,7 @@ if st.session_state.get("chat_open", False):
                 "timestamp": datetime.now().strftime("%H:%M:%S")
             })
 
-            chatbot = OmniAgentChatbot(provider="auto")
+            chatbot = get_ai_copilot()
             with st.spinner("🤖 Nova is thinking..."):
                 res = chatbot.process_message(
                     user_message=user_message,
