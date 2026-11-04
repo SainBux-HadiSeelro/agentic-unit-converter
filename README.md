@@ -3,7 +3,8 @@
 # ⚡ OmniConvert AI
 ### *Autonomous Multilingual Unit Intelligence & 24/7 AI Copilot*
 
-[![Streamlit App](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://agentic-unit-converter.streamlit.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://agentic-unit-converter.streamlit.app/)
 [![Technical Spec](https://img.shields.io/badge/Architecture-SPEC.md-0A66C2?style=for-the-badge&logo=markdown&logoColor=white)](SPEC.md)
 [![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Agent Paradigm](https://img.shields.io/badge/Architecture-ReAct%20Tool--Calling-8A2BE2?style=for-the-badge&logo=openai&logoColor=white)](SPEC.md#3-cognitive-architecture--react-agent-loop)
@@ -16,9 +17,11 @@
 **Architected & Developed by [Hadi Seelro](https://github.com/SainBux-HadiSeelro)**  
 *Agentic AI Developer & Full-Stack Systems Engineer*
 
+### 🚀 **[🌐 Click Here to Open Live Web App](https://agentic-unit-converter.streamlit.app/)**
+
 ---
 
-[🎮 Launch App](#-quickstart--local-run) • [📋 System Architecture & SPEC](SPEC.md) • [🧠 The Agentic Paradigm](#-why-this-stands-out-for-recruiters) • [🌟 Core Features](#-core-capabilities) • [🤖 247 Copilot](#-247-autonomous-ai-copilot-nova) • [🧪 Testing](#-test-suite--verification) • [👨‍💻 Developer Profile](#-about-the-developer)
+[🌐 **Live Demo**](https://agentic-unit-converter.streamlit.app/) • [🎮 Local Run](#-quickstart--local-run) • [📋 System Architecture & SPEC](SPEC.md) • [🧠 The Agentic Paradigm](#-why-this-stands-out-for-recruiters) • [🌟 Core Features](#-core-capabilities) • [🤖 247 Copilot](#-247-autonomous-ai-copilot-nova) • [🧪 Testing](#-test-suite--verification) • [👨‍💻 Developer Profile](#-about-the-developer)
 
 ---
 
@@ -119,9 +122,19 @@ Every calculation is recorded in session state with a timestamp. Users can downl
 
 ---
 
-## 🚀 Quickstart & Local Run
+## 🚀 Quickstart & Usage
 
-### Prerequisites
+### 🌐 Option 1: Instant Live Cloud App (No Setup Required)
+Directly test and use the deployed application live in your browser:
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://agentic-unit-converter.streamlit.app/)
+
+👉 **[https://agentic-unit-converter.streamlit.app/](https://agentic-unit-converter.streamlit.app/)**
+
+---
+
+### 💻 Option 2: Local Run (Developer Setup)
+
+#### Prerequisites
 - Python 3.11 or 3.12 installed.
 
 ### 1. Clone the Repository
