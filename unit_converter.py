@@ -177,57 +177,75 @@ div[data-testid="stSidebarUserContent"] {
 
 /* Brand Header Card Styling */
 .brand-card-container {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%) !important;
-    border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+    background: linear-gradient(
+        125deg,
+        #0d1322 0%,
+        #162032 25%,
+        rgba(56, 189, 248, 0.25) 48%,
+        rgba(168, 85, 247, 0.3) 55%,
+        #162032 75%,
+        #0d1322 100%
+    ) !important;
+    background-size: 260% 100% !important;
+    border: 1.5px solid #38bdf8 !important;
     border-radius: 16px !important;
     padding: 12px 14px !important;
     margin-bottom: 14px !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(56, 189, 248, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.2) !important;
     display: flex !important;
     align-items: center !important;
     gap: 12px !important;
-    animation: cardBorderBreath 4s ease-in-out infinite !important;
+    animation: cardShimmer 3.2s linear infinite, cardLevitate 3s ease-in-out infinite, cardBorderFlash 4s ease infinite !important;
 }
 
 .brand-icon-orb {
     width: 44px !important;
     height: 44px !important;
     border-radius: 12px !important;
-    background: linear-gradient(135deg, rgba(2, 132, 199, 0.35) 0%, rgba(99, 102, 241, 0.4) 100%) !important;
-    border: 1.5px solid #38bdf8 !important;
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.5) 0%, rgba(99, 102, 241, 0.6) 100%) !important;
+    border: 2px solid #38bdf8 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     font-size: 1.5rem !important;
-    box-shadow: 0 0 16px rgba(56, 189, 248, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.6), inset 0 1px 3px rgba(255, 255, 255, 0.8) !important;
     flex-shrink: 0 !important;
-    animation: electricOrbPulse 2.8s ease-in-out infinite !important;
+    animation: orbNeonPulse 2.4s ease-in-out infinite alternate !important;
 }
 
+.brand-bolt-icon {
+    display: inline-block !important;
+    animation: lightningStrike 2s ease-in-out infinite !important;
+}
+
+[data-testid="stSidebar"] .brand-gradient-text,
 .brand-gradient-text {
-    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 35%, #ec4899 70%, #38bdf8 100%) !important;
-    background-size: 250% 250% !important;
+    background: linear-gradient(110deg, #38bdf8 0%, #818cf8 25%, #ec4899 50%, #facc15 75%, #38bdf8 100%) !important;
+    background-size: 240% 100% !important;
     -webkit-background-clip: text !important;
+    background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     color: transparent !important;
     display: inline-block !important;
-    animation: gradientShift 3.5s ease infinite !important;
+    font-weight: 900 !important;
+    animation: textStream 2.6s linear infinite !important;
 }
 
 .brand-tagline-badge {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 4px !important;
-    background: rgba(14, 165, 233, 0.15) !important;
-    border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    gap: 5px !important;
+    background: rgba(14, 165, 233, 0.22) !important;
+    border: 1.5px solid #38bdf8 !important;
     border-radius: 9999px !important;
-    padding: 2px 8px !important;
-    margin-top: 3px !important;
-    animation: taglinePulse 3s ease-in-out infinite !important;
+    padding: 3px 10px !important;
+    margin-top: 4px !important;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.4) !important;
+    animation: taglineGlow 2.4s ease-in-out infinite alternate !important;
 }
 
 .brand-tagline-text {
-    font-size: 0.68rem !important;
+    font-size: 0.7rem !important;
     color: #38bdf8 !important;
     -webkit-text-fill-color: #38bdf8 !important;
     font-weight: 800 !important;
@@ -235,37 +253,73 @@ div[data-testid="stSidebarUserContent"] {
     text-transform: uppercase !important;
 }
 
-@keyframes electricOrbPulse {
+@keyframes cardShimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+@keyframes cardLevitate {
     0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes cardBorderFlash {
+    0%, 100% {
+        border-color: #38bdf8;
+    }
+    50% {
+        border-color: #c084fc;
+    }
+}
+
+@keyframes orbNeonPulse {
+    0% {
         box-shadow: 0 0 14px rgba(56, 189, 248, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.6);
         transform: scale(1);
     }
-    50% {
-        box-shadow: 0 0 24px rgba(99, 102, 241, 0.8), 0 0 10px rgba(56, 189, 248, 0.7), inset 0 1px 3px rgba(255, 255, 255, 0.9);
-        transform: scale(1.06);
+    100% {
+        box-shadow: 0 0 28px rgba(168, 85, 247, 0.9), 0 0 14px rgba(56, 189, 248, 0.8), inset 0 1px 4px rgba(255, 255, 255, 0.9);
+        transform: scale(1.08);
     }
 }
 
-@keyframes cardBorderBreath {
+@keyframes lightningStrike {
     0%, 100% {
-        border-color: rgba(56, 189, 248, 0.35);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 10px rgba(56, 189, 248, 0.15);
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 0 4px #38bdf8);
     }
-    50% {
-        border-color: rgba(99, 102, 241, 0.6);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 0 20px rgba(99, 102, 241, 0.3);
+    20% {
+        transform: scale(1.18) rotate(-9deg);
+        filter: drop-shadow(0 0 14px #facc15);
+    }
+    60% {
+        transform: scale(1.12) rotate(7deg);
+        filter: drop-shadow(0 0 12px #38bdf8);
+    }
+    80% {
+        transform: scale(0.96) rotate(-3deg);
     }
 }
 
-@keyframes taglinePulse {
-    0%, 100% {
-        background: rgba(14, 165, 233, 0.12);
-        border-color: rgba(56, 189, 248, 0.3);
+@keyframes textStream {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+@keyframes taglineGlow {
+    0% {
+        border-color: #38bdf8;
+        box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+        transform: scale(0.98);
     }
-    50% {
-        background: rgba(14, 165, 233, 0.28);
-        border-color: rgba(56, 189, 248, 0.7);
-        box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+    100% {
+        border-color: #ec4899;
+        box-shadow: 0 0 16px rgba(236, 72, 153, 0.7);
+        transform: scale(1.03);
     }
 }
 
@@ -889,7 +943,7 @@ with st.sidebar:
     st.markdown("""
         <div class="brand-card-container">
             <div class="brand-icon-orb">
-                ⚡
+                <span class="brand-bolt-icon">⚡</span>
             </div>
             <div>
                 <h2 style="margin: 0; padding: 0; font-size: 1.25rem; font-weight: 800; color: #ffffff !important; letter-spacing: -0.01em; line-height: 1.2;">
