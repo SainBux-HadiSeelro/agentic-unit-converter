@@ -906,16 +906,8 @@ if st.session_state.get("chat_open", False):
 
         st.markdown("<hr style='margin: 6px 0; border-color: #1e293b;'>", unsafe_allow_html=True)
 
-        # Quick clickable chips
-        qc1, qc2 = st.columns(2)
-        selected_prompt = None
-        if qc1.button("🚗 100 km/h in mph", use_container_width=True, key="float_qp1"):
-            selected_prompt = "Convert 100 km/h to mph"
-        if qc2.button("🇵🇰 50 miles in km", use_container_width=True, key="float_qp2"):
-            selected_prompt = "50 miles ko km me convert karo"
-
         # Chat message history container (Two-sided bubble layout)
-        chat_box = st.container(height=270)
+        chat_box = st.container(height=280)
         with chat_box:
             for msg in st.session_state.chat_messages:
                 if msg["role"] == "user":
@@ -941,6 +933,14 @@ if st.session_state.get("chat_open", False):
                         </div>
                     </div>
                     """, unsafe_allow_html=True)
+
+        # Quick clickable suggestion chips (Positioned at bottom above input)
+        qc1, qc2 = st.columns(2)
+        selected_prompt = None
+        if qc1.button("🚗 100 km/h in mph", use_container_width=True, key="float_qp1"):
+            selected_prompt = "Convert 100 km/h to mph"
+        if qc2.button("🇵🇰 50 miles in km", use_container_width=True, key="float_qp2"):
+            selected_prompt = "50 miles ko km me convert karo"
 
         # Chat Input Box
         chat_input = st.chat_input("Ask Nova any question...", key="float_chat_input")
