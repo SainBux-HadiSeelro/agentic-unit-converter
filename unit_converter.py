@@ -175,6 +175,61 @@ div[data-testid="stSidebarUserContent"] {
     -webkit-text-fill-color: #ffffff !important;
 }
 
+/* Brand Header Card Styling */
+.brand-card-container {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%) !important;
+    border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+    border-radius: 16px !important;
+    padding: 12px 14px !important;
+    margin-bottom: 14px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.15) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.brand-icon-orb {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.35) 0%, rgba(99, 102, 241, 0.4) 100%) !important;
+    border: 1.5px solid #38bdf8 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.5rem !important;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+    flex-shrink: 0 !important;
+}
+
+.brand-gradient-text {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    display: inline-block !important;
+}
+
+.brand-tagline-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    background: rgba(14, 165, 233, 0.15) !important;
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    border-radius: 9999px !important;
+    padding: 2px 8px !important;
+    margin-top: 3px !important;
+}
+
+.brand-tagline-text {
+    font-size: 0.68rem !important;
+    color: #38bdf8 !important;
+    -webkit-text-fill-color: #38bdf8 !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
 /* =========================================================================
    3. BASEWEB SELECTBOX & DROPDOWN - FIXED INVISIBLE LABELS & OPTIONS
    ========================================================================= */
@@ -793,11 +848,17 @@ if "chat_open" not in st.session_state:
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding: 6px 0;">
-            <span style="font-size: 2.2rem;">⚡</span>
+        <div class="brand-card-container">
+            <div class="brand-icon-orb">
+                ⚡
+            </div>
             <div>
-                <h2 style="margin: 0; padding: 0; font-size: 1.35rem; font-weight: 800; color: #ffffff !important;">OmniConvert AI</h2>
-                <span style="font-size: 0.78rem; color: #38bdf8 !important; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;">Smart Converter</span>
+                <h2 style="margin: 0; padding: 0; font-size: 1.25rem; font-weight: 800; color: #ffffff !important; letter-spacing: -0.01em; line-height: 1.2;">
+                    OmniConvert <span class="brand-gradient-text">AI</span>
+                </h2>
+                <div class="brand-tagline-badge">
+                    <span class="brand-tagline-text">✦ Smart Converter</span>
+                </div>
             </div>
         </div>
     """, unsafe_allow_html=True)
