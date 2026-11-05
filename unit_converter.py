@@ -231,7 +231,7 @@ label, p, span, strong, b {
 }
 
 /* =========================================================================
-   6. AESTHETIC ANIMATED FLOATING BUTTON (CYBER AURORA + GLASSMORPHISM)
+   6. AESTHETIC ANIMATED FLOATING BUTTON (CYBER AURORA + MULTI-STAGE MOTION)
    ========================================================================= */
 
 /* Floating Launcher in Bottom-Right Corner */
@@ -243,8 +243,8 @@ label, p, span, strong, b {
 }
 
 .st-key-fab_chat_trigger > button {
-    background: linear-gradient(135deg, #0284c7 0%, #6366f1 45%, #9333ea 100%) !important;
-    background-size: 220% 220% !important;
+    background: linear-gradient(125deg, #0284c7 0%, #6366f1 28%, #a855f7 55%, #ec4899 78%, #06b6d4 100%) !important;
+    background-size: 300% 300% !important;
     color: #ffffff !important;
     border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
     border-radius: 9999px !important;
@@ -256,7 +256,7 @@ label, p, span, strong, b {
     backdrop-filter: blur(14px) !important;
     -webkit-backdrop-filter: blur(14px) !important;
     box-shadow: 0 10px 32px rgba(99, 102, 241, 0.45), 0 3px 10px rgba(2, 132, 199, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.55) !important;
-    animation: gradientShift 5s ease infinite, gentleFloat 3.5s ease-in-out infinite, pulseHalo 2.8s infinite !important;
+    animation: auroraShift 4.5s ease infinite, floatLevitate 3.2s ease-in-out infinite, pulseGlow 2.4s ease-in-out infinite !important;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
@@ -270,36 +270,49 @@ label, p, span, strong, b {
 }
 
 .st-key-fab_chat_trigger > button:hover {
-    transform: translateY(-5px) scale(1.05) !important;
-    background: linear-gradient(135deg, #0ea5e9 0%, #818cf8 45%, #c084fc 100%) !important;
-    border-color: rgba(255, 255, 255, 0.9) !important;
-    box-shadow: 0 18px 45px rgba(99, 102, 241, 0.75), 0 0 30px rgba(56, 189, 248, 0.65), inset 0 1px 3px rgba(255, 255, 255, 0.85) !important;
+    transform: translateY(-6px) scale(1.06) !important;
+    border-color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 20px 48px rgba(99, 102, 241, 0.8), 0 0 32px rgba(236, 72, 153, 0.65), inset 0 1px 3px rgba(255, 255, 255, 0.9) !important;
+    animation: auroraShift 2.2s ease infinite, pulseGlow 1.5s ease-in-out infinite !important;
 }
 
 .st-key-fab_chat_trigger > button:active {
-    transform: translateY(-1px) scale(0.97) !important;
+    transform: translateY(1px) scale(0.95) !important;
 }
 
-@keyframes gradientShift {
+@keyframes auroraShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-@keyframes gentleFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-@keyframes pulseHalo {
-    0% {
-        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45), 0 0 0 0 rgba(56, 189, 248, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.55);
+@keyframes floatLevitate {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    35% {
+        transform: translateY(-4px) rotate(-1deg);
     }
     70% {
-        box-shadow: 0 14px 40px rgba(147, 51, 234, 0.65), 0 0 0 14px rgba(56, 189, 248, 0), inset 0 1px 2px rgba(255, 255, 255, 0.65);
+        transform: translateY(-7px) rotate(1deg);
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.65),
+                    0 8px 28px rgba(2, 132, 199, 0.45),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.55);
+    }
+    50% {
+        box-shadow: 0 0 0 14px rgba(168, 85, 247, 0),
+                    0 14px 42px rgba(236, 72, 153, 0.6),
+                    inset 0 1px 3px rgba(255, 255, 255, 0.75);
     }
     100% {
-        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45), 0 0 0 0 rgba(56, 189, 248, 0), inset 0 1px 2px rgba(255, 255, 255, 0.55);
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0),
+                    0 8px 28px rgba(2, 132, 199, 0.45),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.55);
     }
 }
 
