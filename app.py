@@ -511,6 +511,172 @@ button[data-baseweb="tab"][aria-selected="true"] {
     color: #38bdf8 !important;
     border-bottom-color: #38bdf8 !important;
 }
+
+/* =========================================================================
+   7. COMPREHENSIVE MOBILE RESPONSIVENESS & TOUCH OPTIMIZATION
+   ========================================================================= */
+
+@media (max-width: 768px) {
+    /* Main App Layout Padding */
+    .block-container {
+        padding-top: 1.5rem !important;
+        padding-bottom: 5.5rem !important;
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+    }
+
+    /* Headings & Badges */
+    h1 {
+        font-size: 1.75rem !important;
+        line-height: 1.25 !important;
+    }
+
+    h2 {
+        font-size: 1.4rem !important;
+    }
+
+    h3 {
+        font-size: 1.2rem !important;
+    }
+
+    .hero-badge {
+        font-size: 0.75rem !important;
+        padding: 4px 10px !important;
+    }
+
+    /* Result Card Mobile Scaling */
+    .result-card-box {
+        padding: 18px 14px !important;
+        border-radius: 14px !important;
+        margin-top: 12px !important;
+    }
+
+    .result-card-label {
+        font-size: 0.8rem !important;
+    }
+
+    .result-card-value {
+        font-size: 2.1rem !important;
+        line-height: 1.15 !important;
+        word-break: break-all !important;
+        margin: 4px 0 10px 0 !important;
+    }
+
+    .result-card-badge {
+        font-size: 0.95rem !important;
+        padding: 6px 16px !important;
+    }
+
+    /* Floating Ask Nova Trigger Button (Compact on Mobile) */
+    .st-key-fab_chat_trigger,
+    div.st-key-fab_chat_trigger,
+    div[data-testid="stButton"].st-key-fab_chat_trigger {
+        bottom: 18px !important;
+        right: 14px !important;
+    }
+
+    .st-key-fab_chat_trigger button,
+    .st-key-fab_chat_trigger > button,
+    div.st-key-fab_chat_trigger button {
+        padding: 10px 18px !important;
+        font-size: 0.88rem !important;
+        letter-spacing: 0.25px !important;
+        box-shadow: 0 8px 24px rgba(99, 102, 241, 0.6) !important;
+    }
+
+    .st-key-fab_chat_trigger button *,
+    .st-key-fab_chat_trigger > button *,
+    div.st-key-fab_chat_trigger button * {
+        font-size: 0.88rem !important;
+    }
+
+    /* Floating Chat Widget (Full-Width Responsive Sheet) */
+    .st-key-side_chat_card {
+        width: calc(100vw - 20px) !important;
+        max-width: calc(100vw - 20px) !important;
+        left: 10px !important;
+        right: 10px !important;
+        bottom: 68px !important;
+        height: 76vh !important;
+        max-height: calc(100vh - 85px) !important;
+        border-radius: 16px !important;
+        padding: 12px !important;
+    }
+
+    /* Chat Bubbles Width */
+    .chat-bubble-user {
+        max-width: 90% !important;
+        font-size: 0.88rem !important;
+        padding: 8px 12px !important;
+    }
+
+    .chat-bubble-agent {
+        max-width: 94% !important;
+        font-size: 0.88rem !important;
+        padding: 10px 12px !important;
+    }
+
+    /* Tabs Bar Mobile Spacing */
+    button[data-baseweb="tab"] {
+        font-size: 0.92rem !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    /* Desktop Spacer Suppression */
+    .desktop-swap-spacer {
+        display: none !important;
+    }
+
+    /* Tables Overflow & Mobile Sizing */
+    table {
+        font-size: 0.82rem !important;
+    }
+
+    th, td {
+        padding: 8px 10px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extra Small Devices (iPhone SE, Android Phones) */
+    h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .result-card-value {
+        font-size: 1.8rem !important;
+    }
+
+    .st-key-fab_chat_trigger,
+    div.st-key-fab_chat_trigger,
+    div[data-testid="stButton"].st-key-fab_chat_trigger {
+        bottom: 14px !important;
+        right: 10px !important;
+    }
+
+    .st-key-fab_chat_trigger button,
+    .st-key-fab_chat_trigger > button,
+    div.st-key-fab_chat_trigger button {
+        padding: 8px 14px !important;
+        font-size: 0.82rem !important;
+    }
+
+    .st-key-fab_chat_trigger button *,
+    .st-key-fab_chat_trigger > button *,
+    div.st-key-fab_chat_trigger button * {
+        font-size: 0.82rem !important;
+    }
+
+    .st-key-side_chat_card {
+        width: calc(100vw - 12px) !important;
+        max-width: calc(100vw - 12px) !important;
+        left: 6px !important;
+        right: 6px !important;
+        bottom: 58px !important;
+        height: 80vh !important;
+    }
+}
 </style>
 """
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
@@ -676,7 +842,7 @@ with tab_quick:
             st.rerun()
 
     with col_swap:
-        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        st.markdown("<div class='desktop-swap-spacer' style='height: 28px;'></div>", unsafe_allow_html=True)
         if st.button("⇄ Swap", help="Swap Source and Target Units", use_container_width=True, key=f"btn_swap_{selected_category}"):
             curr_from = st.session_state[from_key_state]
             curr_to = st.session_state[to_key_state]
