@@ -186,6 +186,7 @@ div[data-testid="stSidebarUserContent"] {
     display: flex !important;
     align-items: center !important;
     gap: 12px !important;
+    animation: cardBorderBreath 4s ease-in-out infinite !important;
 }
 
 .brand-icon-orb {
@@ -200,14 +201,17 @@ div[data-testid="stSidebarUserContent"] {
     font-size: 1.5rem !important;
     box-shadow: 0 0 16px rgba(56, 189, 248, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
     flex-shrink: 0 !important;
+    animation: electricOrbPulse 2.8s ease-in-out infinite !important;
 }
 
 .brand-gradient-text {
-    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%) !important;
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 35%, #ec4899 70%, #38bdf8 100%) !important;
+    background-size: 250% 250% !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     color: transparent !important;
     display: inline-block !important;
+    animation: gradientShift 3.5s ease infinite !important;
 }
 
 .brand-tagline-badge {
@@ -219,6 +223,7 @@ div[data-testid="stSidebarUserContent"] {
     border-radius: 9999px !important;
     padding: 2px 8px !important;
     margin-top: 3px !important;
+    animation: taglinePulse 3s ease-in-out infinite !important;
 }
 
 .brand-tagline-text {
@@ -228,6 +233,40 @@ div[data-testid="stSidebarUserContent"] {
     font-weight: 800 !important;
     letter-spacing: 0.08em !important;
     text-transform: uppercase !important;
+}
+
+@keyframes electricOrbPulse {
+    0%, 100% {
+        box-shadow: 0 0 14px rgba(56, 189, 248, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 24px rgba(99, 102, 241, 0.8), 0 0 10px rgba(56, 189, 248, 0.7), inset 0 1px 3px rgba(255, 255, 255, 0.9);
+        transform: scale(1.06);
+    }
+}
+
+@keyframes cardBorderBreath {
+    0%, 100% {
+        border-color: rgba(56, 189, 248, 0.35);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 10px rgba(56, 189, 248, 0.15);
+    }
+    50% {
+        border-color: rgba(99, 102, 241, 0.6);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 0 20px rgba(99, 102, 241, 0.3);
+    }
+}
+
+@keyframes taglinePulse {
+    0%, 100% {
+        background: rgba(14, 165, 233, 0.12);
+        border-color: rgba(56, 189, 248, 0.3);
+    }
+    50% {
+        background: rgba(14, 165, 233, 0.28);
+        border-color: rgba(56, 189, 248, 0.7);
+        box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+    }
 }
 
 /* =========================================================================
