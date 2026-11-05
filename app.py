@@ -231,88 +231,120 @@ label, p, span, strong, b {
 }
 
 /* =========================================================================
-   6. AESTHETIC ANIMATED FLOATING BUTTON (CYBER AURORA + MULTI-STAGE MOTION)
+   6. AESTHETIC ANIMATED FLOATING BUTTON (CYBER SHIMMER + RADAR PULSE + BOUNCE)
    ========================================================================= */
 
 /* Floating Launcher in Bottom-Right Corner */
-.st-key-fab_chat_trigger {
+.st-key-fab_chat_trigger,
+div.st-key-fab_chat_trigger,
+div[data-testid="stButton"].st-key-fab_chat_trigger {
     position: fixed !important;
-    bottom: 45px !important;
+    bottom: 40px !important;
     right: 24px !important;
     z-index: 999999 !important;
+    pointer-events: auto !important;
 }
 
-.st-key-fab_chat_trigger > button {
-    background: linear-gradient(125deg, #0284c7 0%, #6366f1 28%, #a855f7 55%, #ec4899 78%, #06b6d4 100%) !important;
-    background-size: 300% 300% !important;
+.st-key-fab_chat_trigger button,
+.st-key-fab_chat_trigger > button,
+div.st-key-fab_chat_trigger button {
+    background: linear-gradient(
+        115deg,
+        #0284c7 0%,
+        #6366f1 22%,
+        #ec4899 45%,
+        rgba(255, 255, 255, 0.95) 52%,
+        #a855f7 60%,
+        #06b6d4 82%,
+        #0284c7 100%
+    ) !important;
+    background-size: 280% 100% !important;
     color: #ffffff !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    border: 2px solid #38bdf8 !important;
     border-radius: 9999px !important;
-    padding: 13px 26px !important;
-    font-size: 1.02rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.35px !important;
+    padding: 14px 28px !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.4px !important;
     cursor: pointer !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
-    box-shadow: 0 10px 32px rgba(99, 102, 241, 0.45), 0 3px 10px rgba(2, 132, 199, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.55) !important;
-    animation: auroraShift 4.5s ease infinite, floatLevitate 3.2s ease-in-out infinite, pulseGlow 2.4s ease-in-out infinite !important;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    box-shadow: 0 10px 35px rgba(99, 102, 241, 0.6), 0 0 20px rgba(56, 189, 248, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.65) !important;
+    animation: shimmerStreak 2.6s linear infinite, bounceFloat 2.2s ease-in-out infinite, radarPulse 2s ease-out infinite, borderFlash 3s ease infinite !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.st-key-fab_chat_trigger > button * {
+.st-key-fab_chat_trigger button *,
+.st-key-fab_chat_trigger > button *,
+div.st-key-fab_chat_trigger button * {
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
-    font-weight: 700 !important;
-    font-size: 1rem !important;
-    letter-spacing: 0.35px !important;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
+    font-weight: 800 !important;
+    font-size: 1.02rem !important;
+    letter-spacing: 0.4px !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(56, 189, 248, 0.8) !important;
+    animation: textGlowPulse 2s ease-in-out infinite alternate !important;
 }
 
-.st-key-fab_chat_trigger > button:hover {
-    transform: translateY(-6px) scale(1.06) !important;
-    border-color: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 20px 48px rgba(99, 102, 241, 0.8), 0 0 32px rgba(236, 72, 153, 0.65), inset 0 1px 3px rgba(255, 255, 255, 0.9) !important;
-    animation: auroraShift 2.2s ease infinite, pulseGlow 1.5s ease-in-out infinite !important;
+.st-key-fab_chat_trigger button:hover,
+.st-key-fab_chat_trigger > button:hover,
+div.st-key-fab_chat_trigger button:hover {
+    transform: translateY(-8px) scale(1.08) !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 22px 55px rgba(99, 102, 241, 0.9), 0 0 35px rgba(236, 72, 153, 0.85), inset 0 1px 4px rgba(255, 255, 255, 1) !important;
+    animation: shimmerStreak 1.4s linear infinite, radarPulse 1.2s ease-out infinite, borderFlash 1.5s ease infinite !important;
 }
 
-.st-key-fab_chat_trigger > button:active {
-    transform: translateY(1px) scale(0.95) !important;
+.st-key-fab_chat_trigger button:active,
+.st-key-fab_chat_trigger > button:active,
+div.st-key-fab_chat_trigger button:active {
+    transform: translateY(2px) scale(0.95) !important;
 }
 
-@keyframes auroraShift {
+@keyframes shimmerStreak {
     0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
 }
 
-@keyframes floatLevitate {
+@keyframes bounceFloat {
     0%, 100% {
-        transform: translateY(0px) rotate(0deg);
-    }
-    35% {
-        transform: translateY(-4px) rotate(-1deg);
-    }
-    70% {
-        transform: translateY(-7px) rotate(1deg);
-    }
-}
-
-@keyframes pulseGlow {
-    0% {
-        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.65),
-                    0 8px 28px rgba(2, 132, 199, 0.45),
-                    inset 0 1px 2px rgba(255, 255, 255, 0.55);
+        transform: translateY(0px) scale(1);
     }
     50% {
-        box-shadow: 0 0 0 14px rgba(168, 85, 247, 0),
-                    0 14px 42px rgba(236, 72, 153, 0.6),
-                    inset 0 1px 3px rgba(255, 255, 255, 0.75);
+        transform: translateY(-10px) scale(1.04);
+    }
+}
+
+@keyframes radarPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.85),
+                    0 0 0 0 rgba(236, 72, 153, 0.7),
+                    0 8px 30px rgba(99, 102, 241, 0.6);
+    }
+    60% {
+        box-shadow: 0 0 0 18px rgba(56, 189, 248, 0),
+                    0 0 0 32px rgba(236, 72, 153, 0),
+                    0 14px 45px rgba(99, 102, 241, 0.85);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0),
-                    0 8px 28px rgba(2, 132, 199, 0.45),
-                    inset 0 1px 2px rgba(255, 255, 255, 0.55);
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0),
+                    0 0 0 0 rgba(236, 72, 153, 0),
+                    0 8px 30px rgba(99, 102, 241, 0.6);
+    }
+}
+
+@keyframes borderFlash {
+    0%, 100% { border-color: #38bdf8; }
+    33% { border-color: #c084fc; }
+    66% { border-color: #f472b6; }
+}
+
+@keyframes textGlowPulse {
+    0% {
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6), 0 0 12px rgba(56, 189, 248, 0.7);
+    }
+    100% {
+        text-shadow: 0 0 14px rgba(255, 255, 255, 0.95), 0 0 24px rgba(236, 72, 153, 0.9);
     }
 }
 
