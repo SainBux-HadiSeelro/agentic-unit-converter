@@ -231,35 +231,53 @@ label, p, span, strong, b {
 }
 
 /* =========================================================================
-   6. AESTHETIC ANIMATED FLOATING BUTTON (LIFTED HIGHER + GLOWING HALO)
+   6. AESTHETIC ANIMATED FLOATING BUTTON (CYBER AURORA + GLASSMORPHISM)
    ========================================================================= */
 
-/* Floating Launcher in Bottom-Right Corner - Positioned Higher (bottom: 50px) */
+/* Floating Launcher in Bottom-Right Corner */
 .st-key-fab_chat_trigger {
     position: fixed !important;
-    bottom: 50px !important;
+    bottom: 45px !important;
     right: 24px !important;
     z-index: 999999 !important;
 }
 
 .st-key-fab_chat_trigger > button {
-    background: linear-gradient(135deg, #0284c7 0%, #6366f1 50%, #00f2fe 100%) !important;
-    background-size: 250% 250% !important;
+    background: linear-gradient(135deg, #0284c7 0%, #6366f1 45%, #9333ea 100%) !important;
+    background-size: 220% 220% !important;
     color: #ffffff !important;
-    border: 2px solid rgba(255, 255, 255, 0.6) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
     border-radius: 9999px !important;
-    padding: 14px 26px !important;
-    font-size: 1.05rem !important;
-    font-weight: 800 !important;
+    padding: 13px 26px !important;
+    font-size: 1.02rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.35px !important;
     cursor: pointer !important;
-    animation: gradientShift 4s ease infinite, gentleFloat 3s ease-in-out infinite, pulseHalo 2.5s infinite !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    box-shadow: 0 10px 32px rgba(99, 102, 241, 0.45), 0 3px 10px rgba(2, 132, 199, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.55) !important;
+    animation: gradientShift 5s ease infinite, gentleFloat 3.5s ease-in-out infinite, pulseHalo 2.8s infinite !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.st-key-fab_chat_trigger > button * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.35px !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
 }
 
 .st-key-fab_chat_trigger > button:hover {
-    transform: translateY(-4px) scale(1.08) !important;
-    box-shadow: 0 16px 45px rgba(2, 132, 199, 0.9), 0 0 35px rgba(99, 102, 241, 0.8) !important;
-    border-color: #ffffff !important;
+    transform: translateY(-5px) scale(1.05) !important;
+    background: linear-gradient(135deg, #0ea5e9 0%, #818cf8 45%, #c084fc 100%) !important;
+    border-color: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 18px 45px rgba(99, 102, 241, 0.75), 0 0 30px rgba(56, 189, 248, 0.65), inset 0 1px 3px rgba(255, 255, 255, 0.85) !important;
+}
+
+.st-key-fab_chat_trigger > button:active {
+    transform: translateY(-1px) scale(0.97) !important;
 }
 
 @keyframes gradientShift {
@@ -270,18 +288,18 @@ label, p, span, strong, b {
 
 @keyframes gentleFloat {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    50% { transform: translateY(-5px); }
 }
 
 @keyframes pulseHalo {
     0% {
-        box-shadow: 0 8px 25px rgba(2, 132, 199, 0.6), 0 0 0 0 rgba(2, 132, 199, 0.55);
+        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45), 0 0 0 0 rgba(56, 189, 248, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.55);
     }
     70% {
-        box-shadow: 0 12px 35px rgba(2, 132, 199, 0.75), 0 0 0 16px rgba(2, 132, 199, 0);
+        box-shadow: 0 14px 40px rgba(147, 51, 234, 0.65), 0 0 0 14px rgba(56, 189, 248, 0), inset 0 1px 2px rgba(255, 255, 255, 0.65);
     }
     100% {
-        box-shadow: 0 8px 25px rgba(2, 132, 199, 0.6), 0 0 0 0 rgba(2, 132, 199, 0);
+        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45), 0 0 0 0 rgba(56, 189, 248, 0), inset 0 1px 2px rgba(255, 255, 255, 0.55);
     }
 }
 
@@ -524,7 +542,7 @@ with st.sidebar:
         <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 12px;">
             <span style="color: #38bdf8; font-weight: 700; font-size: 0.9rem;">🤖 24/7 AI Copilot Active</span>
             <p style="color: #cbd5e1; font-size: 0.82rem; margin: 4px 0 0 0;">
-                Click the floating <b>💬 Ask Nova AI</b> button anytime. 100% free, zero key required.
+                Click the floating <b>✨ Ask Nova AI</b> button anytime. 100% free, zero key required.
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -837,7 +855,7 @@ if st.session_state.get("chat_open", False):
                 </div>
             """, unsafe_allow_html=True)
         with head_c2:
-            if st.button("✖", key="cut_chat_btn", help="Cut / Close Chatbot"):
+            if st.button("✖", key="cut_chat_btn", help="Close Nova AI Copilot"):
                 st.session_state.chat_open = False
                 st.rerun()
 
@@ -910,8 +928,8 @@ if st.session_state.get("chat_open", False):
                 st.session_state.chat_messages = [st.session_state.chat_messages[0]]
                 st.rerun()
 
-# Floating Aesthetic Corner Button Trigger (Lifted Higher + Triple Animation)
-fab_label = "✖ Cut Nova AI" if st.session_state.get("chat_open", False) else "💬 Ask Nova AI"
+# Floating Aesthetic Corner Button Trigger (Glassmorphism Aurora FAB)
+fab_label = "✕ Close Nova AI" if st.session_state.get("chat_open", False) else "✨ Ask Nova AI"
 if st.button(fab_label, key="fab_chat_trigger", help="Toggle 24/7 AI Unit Copilot"):
     st.session_state.chat_open = not st.session_state.get("chat_open", False)
     st.rerun()
